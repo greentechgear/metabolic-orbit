@@ -133,10 +133,10 @@ h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.06;letter-spac
 #hero{min-height:100vh;min-height:100svh;display:flex;align-items:center}
 #hero .wrap{padding-top:12vh}
 #hero .pre{
-  font-family:var(--body);font-weight:300;font-size:clamp(.95rem,1.3vw,1.1rem);
-  color:var(--ink-dim);max-width:44ch;letter-spacing:.01em;
+  font-family:var(--body);font-weight:400;font-size:clamp(1.2rem,2vw,1.6rem);line-height:1.4;
+  color:var(--ink);max-width:38ch;letter-spacing:.01em;
 }
-#hero h1{margin:30px 0 26px;max-width:16ch}
+#hero h1{margin:22px 0 26px;max-width:16ch}
 #hero .sub{color:var(--ink-dim);font-weight:300;font-size:clamp(1rem,1.4vw,1.15rem)}
 .cta{
   display:inline-flex;align-items:center;gap:12px;margin-top:44px;
@@ -433,6 +433,11 @@ h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.06;letter-spac
 #finale{min-height:220vh}
 #finale .hold{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
 #finale .fl{position:absolute;width:min(1000px,92vw);opacity:0;font-family:var(--display);font-weight:600;font-size:clamp(2rem,6vw,4.6rem);letter-spacing:-.01em;line-height:1.08}
+#finale #f1,#finale #f2{
+  padding:.25em .4em;border-radius:8px;
+  background:linear-gradient(90deg,rgba(5,7,10,0),rgba(5,7,10,.88) 18%,rgba(5,7,10,.88) 82%,rgba(5,7,10,0));
+  text-shadow:0 2px 12px var(--void),0 0 42px var(--void);
+}
 #finale .fl .accent{color:var(--solar)}
 #finale .fl.last{font-size:clamp(1rem,1.6vw,1.25rem);font-weight:400;letter-spacing:.02em;color:var(--ink-dim)}
 #finale .fl.last a{margin-top:26px}
@@ -1216,7 +1221,7 @@ function buildGeocentric() {
   geoGroup.add(patientSprite);
 
   addLabel({
-    text: "The Patient", cls: "patient", offY: 64,
+    text: "The Patient Has Symptoms", cls: "patient", offY: 64,
     getWorld: v => v.copy(patientSprite.position).setY(patientSprite.position.y),
     groupAlpha: () => STATE.geoAlpha
   });
