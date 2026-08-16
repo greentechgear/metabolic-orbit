@@ -482,20 +482,112 @@ html[data-motion="reduced"] *{transition-duration:.01ms !important}
 
 /* ---------- responsive ---------- */
 @media (max-width:900px){
+  nav{
+    gap:12px;
+    padding:14px 20px;
+    background:linear-gradient(to bottom,rgba(5,7,10,.96),rgba(5,7,10,.9) 78%,rgba(5,7,10,0));
+  }
+  nav .mark{font-size:10.5px;letter-spacing:.16em}
+  nav .links{gap:16px;min-width:0;flex:1 1 auto}
+  nav .links a{font-size:9.5px}
   .story-grid{grid-template-columns:1fr;gap:26px}
   #storyArt{max-width:min(58vw,320px)}
-  .story-lines{min-height:150px}
+  .story-lines{min-height:150px;isolation:isolate}
+  .story-lines::before,
+  #hero .wrap::before,
+  .flow .sec-head::before,
+  #explore .hud-head::before{
+    content:"";position:absolute;inset:-14px -12px;z-index:-1;
+    border:1px solid rgba(154,167,184,.12);border-radius:10px;
+    background:linear-gradient(180deg,rgba(5,7,10,.82),rgba(5,7,10,.58));
+  }
+  #hero .wrap{position:relative;isolation:isolate}
+  #hero .wrap::before{inset:-22px -16px;background:linear-gradient(180deg,rgba(5,7,10,.78),rgba(5,7,10,.46))}
+  .flow{padding-top:20vh}
+  .flow .veil{background:linear-gradient(to bottom,rgba(5,7,10,.68),rgba(5,7,10,.96) 9%,rgba(5,7,10,.96) 91%,rgba(5,7,10,.72))}
+  .flow .sec-head{position:relative;isolation:isolate}
   .signal-grid{grid-template-columns:1fr}
+  .marker-list button{background:rgba(5,7,10,.76)}
+  .signal-note,.dash-note{background:rgba(5,7,10,.76)}
+  #oldmodel .model-tag{background:rgba(5,7,10,.68);padding:5px 12px;border-radius:4px}
+  #oldmodel .beat{background:rgba(5,7,10,.72);padding:8px 16px;border-radius:6px;text-shadow:0 2px 10px var(--void)}
+  #moment .qline{background:linear-gradient(180deg,rgba(5,7,10,.82),rgba(5,7,10,.62));padding:10px 14px;border-radius:10px;text-shadow:0 2px 10px var(--void)}
+  #moment .shift-rail{background:rgba(5,7,10,.7);padding:12px 18px 14px;border-radius:12px}
   .dash-grid{grid-template-columns:1fr}
   .dash-vis{position:relative;top:0}
+  .metric{grid-template-columns:minmax(100px,1fr) minmax(0,1fr) 76px;gap:10px;background:rgba(5,7,10,.76)}
   .compare-stage{aspect-ratio:4/5;max-height:none}
-  nav .links{gap:16px}
-  nav .links a{font-size:10px}
+  .compare-stage .cmp-title{top:12px;left:12px;right:auto;font-size:8.5px;letter-spacing:.2em;padding:4px 6px;background:rgba(5,7,10,.82);border-radius:2px}
+  .compare-stage .cmp-title.right{top:36px;right:12px;left:auto}
   #motionToggle{display:none}
-  .metric{grid-template-columns:minmax(100px,1fr) minmax(0,1fr) 76px;gap:10px}
   #disclaimer p{font-size:9.5px}
-  .hud-tools{gap:10px}
+  .hud-tools{gap:10px;padding:14px;background:linear-gradient(180deg,rgba(5,7,10,.84),rgba(5,7,10,.7));border:1px solid rgba(154,167,184,.12);border-radius:10px}
+  #explore .hud{padding-bottom:104px}
+  #explore .hud-head{position:relative;isolation:isolate}
+  #explore .zoomer{width:100%;min-width:0}
+  #explore .seg{display:flex;width:100%}
+  #explore .seg button{flex:1 1 0;min-width:0;padding-left:8px;padding-right:8px}
+  #explore .hud-tools>div:last-child{width:100%;align-items:stretch !important}
+  #factorBtn{width:100%}
+  .ev-card{background:rgba(5,7,10,.76)}
+  .about-cols>div{padding:16px;border:1px solid rgba(154,167,184,.12);border-radius:8px;background:rgba(5,7,10,.66)}
+  #labels{opacity:.24}
   .lbl .tx{display:none}
+}
+@media (max-width:900px) and (max-height:700px){
+  #hero h1{font-size:2.2rem}
+  #hero .sub{font-size:.95rem}
+  #hero .cta{margin-top:2px;padding:15px 22px}
+  #hero .scroll-hint{display:none}
+  #explore .top{position:relative;height:auto;min-height:100svh}
+  #explore .hud{position:relative;height:auto;min-height:100svh}
+}
+/* Reduced motion keeps the narrative in a readable, non-pinned layout. */
+html[data-motion="reduced"] #stage canvas{opacity:.72}
+html[data-motion="reduced"] #story .pin-panel,
+html[data-motion="reduced"] #oldmodel .pin-panel,
+html[data-motion="reduced"] #moment .pin-panel{
+  height:auto;min-height:100svh;overflow:visible;
+}
+html[data-motion="reduced"] #story .pin-panel{display:block;padding:12vh 0 10vh}
+html[data-motion="reduced"] #story .story-lines{display:flex;flex-direction:column;gap:22px;min-height:0}
+html[data-motion="reduced"] #story .story-line{
+  position:static;opacity:1 !important;transform:none !important;max-width:34ch;
+}
+html[data-motion="reduced"] #oldmodel .pin-panel{display:block;padding:12vh 0 14vh}
+html[data-motion="reduced"] #oldmodel .model-tag{
+  position:static;transform:none;margin:0 auto 38px;display:block;width:fit-content;max-width:100%;white-space:normal;
+}
+html[data-motion="reduced"] #oldmodel .beatbox{
+  position:static;display:flex;flex-direction:column;align-items:center;gap:22px;padding:0;
+}
+html[data-motion="reduced"] #oldmodel .beat,
+html[data-motion="reduced"] #oldmodel .float-quote{
+  position:static;opacity:1 !important;transform:none !important;
+}
+html[data-motion="reduced"] #oldmodel .float-quote{margin:0 auto}
+html[data-motion="reduced"] #oldmodel .complement-note{
+  position:static;transform:none;opacity:1 !important;margin:34px auto 0;
+}
+html[data-motion="reduced"] #moment .pin-panel{
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:24px;padding:12vh 0 14vh;
+}
+html[data-motion="reduced"] #moment .qline{
+  position:static;transform:none;opacity:1 !important;width:min(880px,calc(100% - 40px));margin:0;
+}
+html[data-motion="reduced"] #moment #changeBtn,
+html[data-motion="reduced"] #moment .shift-rail{
+  position:static;transform:none;margin:0;
+}
+html[data-motion="reduced"] #moment .shift-rail{width:min(460px,calc(100% - 40px))}
+html[data-motion="reduced"] #explore .top{position:relative;height:auto;min-height:100svh}
+html[data-motion="reduced"] #explore .hud{position:relative;min-height:100svh}
+html[data-motion="reduced"] #finale{min-height:0}
+html[data-motion="reduced"] #finale .hold{
+  position:static;height:auto;min-height:100svh;overflow:visible;flex-direction:column;gap:42px;padding:14vh 0;
+}
+html[data-motion="reduced"] #finale .fl{
+  position:static;opacity:1 !important;transform:none !important;width:min(1000px,92vw);
 }
 </style>
 </head>
@@ -1011,7 +1103,8 @@ const CONN_PAIRS = (() => {
 
 /* ---------- globals ---------- */
 const REDUCE_QUERY = window.matchMedia("(prefers-reduced-motion: reduce)");
-let motionOK = !REDUCE_QUERY.matches;
+const MOTION_OVERRIDE = sessionStorage.getItem("metabolic-motion");
+let motionOK = MOTION_OVERRIDE ? MOTION_OVERRIDE === "full" : !REDUCE_QUERY.matches;
 const isMobile = Math.min(window.innerWidth, window.innerHeight) < 700 || "ontouchstart" in window && window.innerWidth < 900;
 
 const STATE = {
@@ -1945,15 +2038,45 @@ function buildEvidenceGrid() {
    ============================================================ */
 "use strict";
 
-let momentST = null, sliderSquelch = false;
+let momentST = null, sliderSquelch = false, storyArt = null;
 
 function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
 
+function ensureStoryDiagram() {
+  if (!storyArt) storyArt = buildStoryDiagram();
+  return storyArt;
+}
+
+function applyReducedMotionState() {
+  document.documentElement.dataset.motion = "reduced";
+  const art = ensureStoryDiagram();
+  art.geoCircles.forEach(c => c.style.strokeDashoffset = "0");
+  art.epiGroups.forEach(g => { g.style.opacity = "1"; g.style.transform = "none"; });
+  $("#geoDiagram").style.opacity = "0.1";
+  $("#geoDiagram").style.transform = "none";
+  $("#helioDiagram").style.opacity = "1";
+  $("#helioDiagram").style.transform = "none";
+  Object.assign(STATE, {
+    geoAlpha: 0, helioAlpha: 1, sunS: 1, ringP: 1, clinP: 1,
+    collapse: 1, patientOff: 1, warp: 0, flash: 0
+  });
+  $("#shiftSlider").value = 1000;
+  $("#shiftSlider").style.setProperty("--fill", "100%");
+  $$(".story-line,.beat,.qline,#finale .fl,.float-quote,.model-tag,.complement-note").forEach(el => {
+    el.style.opacity = "1";
+    el.style.transform = "none";
+  });
+  $("#hero .wrap").style.opacity = "1";
+  $("#hero .wrap").style.transform = "none";
+  $("#changeBtn").style.opacity = "1";
+  $("#explore .hud").style.opacity = "1";
+  LABELGATE = 0;
+  setExplore(true);
+}
+
 function setupScroll() {
-  if (!hasGSAP) {
-    $$(".story-line,.beat,.qline,#finale .fl,.float-quote,.model-tag,.complement-note").forEach(el => el.style.opacity = 1);
-    STATE.geoAlpha = 0; STATE.helioAlpha = 1; STATE.sunS = 1; STATE.ringP = 1; STATE.clinP = 1;
-    setExplore(true);
+  if (!hasGSAP || !motionOK) {
+    applyReducedMotionState();
     return;
   }
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -1965,7 +2088,7 @@ function setupScroll() {
   });
 
   /* --- copernicus story --- */
-  const art = buildStoryDiagram();
+  const art = ensureStoryDiagram();
   const tlStory = gsap.timeline({
     scrollTrigger: { trigger: "#story .pin-panel", start: "top top", end: "+=2800", pin: true, scrub: 0.6 }
   });
@@ -2274,9 +2397,21 @@ function setMotion(on) {
   const b = $("#motionToggle");
   b.textContent = on ? "Motion: Full" : "Motion: Reduced";
   b.setAttribute("aria-pressed", (!on).toString());
+  if (!on) {
+    if (hasGSAP && typeof ScrollTrigger !== "undefined") {
+      ScrollTrigger.getAll().slice().forEach(trigger => trigger.kill());
+    }
+    momentST = null;
+    applyReducedMotionState();
+  }
 }
-$("#motionToggle").addEventListener("click", () => setMotion(!motionOK));
-if (REDUCE_QUERY.matches) setMotion(false);
+$("#motionToggle").addEventListener("click", () => {
+  const next = !motionOK;
+  sessionStorage.setItem("metabolic-motion", next ? "full" : "reduced");
+  setMotion(next);
+  if (next && hasGSAP && typeof ScrollTrigger !== "undefined" && !ScrollTrigger.getAll().length) location.reload();
+});
+if (REDUCE_QUERY.matches && MOTION_OVERRIDE !== "full") setMotion(false);
 REDUCE_QUERY.addEventListener && REDUCE_QUERY.addEventListener("change", e => setMotion(!e.matches));
 
 /* ---------- boot ---------- */
