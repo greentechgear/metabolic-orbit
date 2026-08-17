@@ -447,6 +447,39 @@ h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.06;letter-spac
 .ev-card{border:1px solid var(--hair);border-radius:2px;padding:20px 22px;background:rgba(255,255,255,.014)}
 .ev-card h5{font-family:var(--display);font-size:.92rem;font-weight:600;color:var(--ink);letter-spacing:.02em;margin-bottom:8px}
 .ev-card p{font-size:.84rem;color:var(--ink-dim);font-weight:300;line-height:1.6}
+.evidence-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.evidence-meta span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);border:1px solid var(--hair);border-radius:999px;padding:6px 10px}
+.evidence-modules{display:grid;gap:26px;margin-top:34px}
+.evidence-module{border-top:1px solid var(--hair);padding-top:22px}
+.evidence-module h3{font-size:clamp(1.25rem,2.2vw,1.7rem);margin-bottom:14px}
+.evidence-module .module-lede{color:var(--ink-dim);font-size:.9rem;font-weight:300;max-width:72ch;margin-bottom:16px}
+.claim-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px}
+.claim-card{border:1px solid var(--hair);border-radius:2px;padding:17px 18px;background:rgba(255,255,255,.014)}
+.claim-card h4{font-family:var(--display);font-size:.92rem;font-weight:500;color:var(--ink);margin-bottom:8px}
+.claim-card p{font-size:.87rem;color:var(--ink-dim);font-weight:300;line-height:1.6}
+.claim-card .claim-note{font-size:.76rem;color:var(--ink-faint);line-height:1.5;margin-top:10px}
+.claim-card .meta,.source-card .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.ev-relationship{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);border:1px solid var(--hair);border-radius:999px;padding:4px 8px;font-family:var(--display)}
+.source-links{display:flex;flex-direction:column;gap:5px;margin-top:10px}
+.source-link{font-size:11px;color:var(--path);text-decoration:none;line-height:1.45}
+.source-link:hover,.source-link:focus-visible{color:var(--solar-hi);text-decoration:underline}
+.source-link small{color:var(--ink-faint);font-size:10px}
+.source-library{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:10px;margin-top:22px}
+.source-library h3{grid-column:1/-1;font-size:clamp(1.25rem,2.2vw,1.7rem);margin:12px 0 4px}
+.source-card{border:1px solid var(--hair);border-radius:2px;padding:14px 15px;background:rgba(255,255,255,.01)}
+.source-card h4{font-family:var(--display);font-size:.86rem;font-weight:500;color:var(--ink);line-height:1.35}
+.source-card p{font-size:.74rem;color:var(--ink-faint);line-height:1.45;margin-top:5px}
+.source-card a{display:inline-block;margin-top:8px;color:var(--path);font-size:10px;word-break:break-word;text-decoration:none}
+.source-card a:hover,.source-card a:focus-visible{color:var(--solar-hi);text-decoration:underline}
+.section-note{border-left:2px solid var(--path-dim);padding:12px 15px;background:rgba(87,212,200,.035);color:var(--ink-dim);font-size:.82rem;line-height:1.6}
+.section-note.warn{border-left-color:var(--ember);background:rgba(224,106,74,.045)}
+.missing-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:8px;margin-top:12px}
+.missing-list div{border:1px dashed var(--hair);padding:10px 12px;color:var(--ink-faint);font-size:.78rem;line-height:1.45}
+.safety-copy{display:grid;gap:12px}
+.safety-copy ul{list-style:none;display:grid;gap:7px}
+.safety-copy li{font-size:.84rem;color:var(--ink-dim);padding-left:15px;position:relative}
+.safety-copy li::before{content:"";position:absolute;left:0;top:.7em;width:5px;height:5px;border-radius:50%;background:var(--ember)}
+.source-count{color:var(--solar);font-family:var(--display)}
 .legend-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
 .about-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(24px,4vw,56px);margin-top:36px}
 .about-cols h5{font-family:var(--display);font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--solar);margin-bottom:14px;font-weight:500}
@@ -799,15 +832,21 @@ html[data-motion="reduced"] #finale .fl{
     <div class="sec-head">
       <p class="kicker">Evidence</p>
       <h2 class="display-l">How this model handles claims.</h2>
-      <p class="lede">Every relationship drawn in the visualization carries an evidence entry: a short explanation, a strength label, and a reference slot. Where a verified citation has not yet been supplied, the slot is clearly marked as a placeholder rather than invented.</p>
+      <p class="lede">Every published claim is paired with a direct source, evidence grade, relationship label, population/context note, and uncertainty or safety note where needed.</p>
     </div>
     <div class="legend-row">
-      <span class="ev-strength s1">Established association</span>
-      <span class="ev-strength s2">Consistent evidence</span>
-      <span class="ev-strength s3">Emerging evidence</span>
+      <span class="ev-strength s1">HIGH</span>
+      <span class="ev-strength s2">MODERATE</span>
+      <span class="ev-strength s2">ASSOCIATION ONLY</span>
+      <span class="ev-strength s3">LOW / EMERGING</span>
     </div>
-    <div class="ev-grid" id="evGrid"></div>
-    <p class="small-note" style="margin-top:26px;max-width:70ch">Language throughout uses "associated with," "can contribute to," "is linked to," and "may influence" wherever causation is not firmly established. This model does not treat metabolism as the sole cause of all chronic disease, and it does not rank one mechanism above clinical judgment.</p>
+    <div class="evidence-meta">
+      <span>Last reviewed <strong class="source-count">2026-08-17</strong></span>
+      <span><strong class="source-count">40</strong> canonical source records</span>
+      <span>Arrows are conceptual relationships, not individual causal proof</span>
+    </div>
+    <div id="evidenceModules" class="evidence-modules"></div>
+    <div id="sourceLibrary" class="source-library"></div>
   </div>
 </section>
 
@@ -824,9 +863,9 @@ html[data-motion="reduced"] #finale .fl{
       <div>
         <h5>What this model says</h5>
         <ul>
-          <li>Common metabolic risk factors are linked and often move together.</li>
-          <li>Underlying processes such as insulin signaling, inflammation, and mitochondrial function may influence many downstream markers.</li>
-          <li>Improving metabolic health is associated with improvement across multiple risk factors.</li>
+          <li>Common metabolic risk factors are linked and often move together. <a href="https://www.nhlbi.nih.gov/health/metabolic-syndrome/diagnosis" target="_blank" rel="noopener noreferrer">NHLBI source</a></li>
+          <li>Underlying processes such as insulin signaling, inflammation, and mitochondrial function may influence many downstream markers. <a href="https://www.ncbi.nlm.nih.gov/books/NBK278936/" target="_blank" rel="noopener noreferrer">Insulin physiology source</a></li>
+          <li>Improving metabolic health is associated with improvement across multiple risk factors. <a href="https://www.who.int/publications/i/item/9789240015128" target="_blank" rel="noopener noreferrer">WHO activity guidance</a></li>
         </ul>
       </div>
       <div>
@@ -869,13 +908,13 @@ html[data-motion="reduced"] #finale .fl{
     <h4>Evidence</h4>
     <div id="npEvidence"></div>
   </div>
-  <p class="panel-disclaimer">Relationship language is deliberately hedged where causation is not firmly established. Placeholder references mark where verified citations still need to be supplied.</p>
+  <p class="panel-disclaimer">Relationship language is deliberately hedged where causation is not firmly established. Sources are canonical records with direct URLs and a shared last-reviewed date.</p>
 </aside>
 
 <!-- persistent disclaimer -->
 <div id="disclaimer" role="note">
   <span class="i">i</span>
-  <p>This experience is educational and illustrates a systems-level framework for understanding metabolic health. It is not medical advice, diagnosis, or a recommendation to discontinue prescribed treatment.</p>
+  <p>This app summarizes population-level evidence, risk relationships and trends; it does not diagnose disease or prescribe treatment. Biomarkers can be affected by illness, medications, testing conditions and laboratory methods. Discuss abnormal or changing results—and any fasting, exercise, medication or HBOT plan—with a qualified clinician.</p>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -896,8 +935,61 @@ html[data-motion="reduced"] #finale .fl{
      description, connections: string[], tone?, evidence?: Evidence[]
    }
 ------------------------------------------------ */
-const PH_REF = "Placeholder reference: verified citation to be supplied (journal, year, DOI).";
-const ev = (claim, strength) => ({ claim, strength, ref: PH_REF });
+const LAST_REVIEWED = "2026-08-17";
+const SOURCE_RECORDS = [
+  { id:"src_nhlbi_metabolic_dx", title:"Metabolic syndrome: diagnosis", org:"National Heart, Lung, and Blood Institute", url:"https://www.nhlbi.nih.gov/health/metabolic-syndrome/diagnosis" },
+  { id:"src_aha_metabolic_dx", title:"Symptoms and diagnosis of metabolic syndrome", org:"American Heart Association" , url:"https://www.heart.org/en/health-topics/metabolic-syndrome/symptoms-and-diagnosis-of-metabolic-syndrome" },
+  { id:"src_pmid_30171523", title:"Metabolic syndrome — PubMed record (PMID 30171523)", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/30171523/" },
+  { id:"src_endotext_insulin", title:"Insulin resistance and insulin action", org:"Endotext / NCBI Bookshelf", url:"https://www.ncbi.nlm.nih.gov/books/NBK278936/" },
+  { id:"src_pmc_4412452", title:"Inflammation and metabolic disease — full text", org:"PubMed Central / NIH", url:"https://pmc.ncbi.nlm.nih.gov/articles/PMC4412452/" },
+  { id:"src_pmid_26207884", title:"Inflammation and insulin resistance — PubMed record (PMID 26207884)", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/26207884/" },
+  { id:"src_pmid_27448057", title:"Exercise and skeletal-muscle mitochondrial adaptations — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/27448057/" },
+  { id:"src_pmid_39390310", title:"Exercise, mitochondria and metabolic health — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/39390310/" },
+  { id:"src_who_healthy_diet", title:"Healthy diet", org:"World Health Organization", url:"https://www.who.int/news-room/fact-sheets/detail/healthy-diet" },
+  { id:"src_pmid_40533200", title:"Intermittent fasting and cardiometabolic outcomes — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/40533200/" },
+  { id:"src_who_pa", title:"WHO guidelines on physical activity and sedentary behaviour", org:"World Health Organization", year:"2020", url:"https://www.who.int/publications/i/item/9789240015128" },
+  { id:"src_pmid_28879026", title:"Physical activity and insulin sensitivity — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/28879026/" },
+  { id:"src_pmid_35189549", title:"Sleep restriction and insulin sensitivity — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/35189549/" },
+  { id:"src_pmid_24743684", title:"Psychosocial stress and metabolic risk — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/24743684/" },
+  { id:"src_pmid_42365351", title:"Stress and metabolic outcomes — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/42365351/" },
+  { id:"src_pmid_29800780", title:"Stress, cortisol and cardiometabolic risk — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/29800780/" },
+  { id:"src_pmid_32020062", title:"Waist circumference and cardiometabolic risk — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/32020062/" },
+  { id:"src_niaaa_alcohol", title:"Alcohol's effects on the body", org:"National Institute on Alcohol Abuse and Alcoholism", url:"https://www.niaaa.nih.gov/alcohols-effects-health/alcohols-effects-body" },
+  { id:"src_who_tobacco", title:"Tobacco and noncommunicable diseases", org:"World Health Organization Regional Office for Europe", url:"https://www.who.int/europe/publications/tobacco-and-noncommunicable-diseases" },
+  { id:"src_pmid_34684171", title:"HBOT and diabetes — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/34684171/" },
+  { id:"src_pmid_41322229", title:"HBOT and insulin sensitivity — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/41322229/" },
+  { id:"src_pmid_34944468", title:"HBOT mechanistic context — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/34944468/" },
+  { id:"src_uhms_indications", title:"Hyperbaric oxygen therapy indications", org:"Undersea and Hyperbaric Medical Society", url:"https://www.uhms.org/resources/featured-resources/hbo-indications.html" },
+  { id:"src_fda_hbot", title:"Follow instructions for safe use of HBOT devices", org:"U.S. Food and Drug Administration", url:"https://www.fda.gov/medical-devices/letters-health-care-providers/follow-instructions-safe-use-hyperbaric-oxygen-therapy-devices-letter-health-care-providers" },
+  { id:"src_niddk_t2d_risk", title:"Risk factors for type 2 diabetes", org:"National Institute of Diabetes and Digestive and Kidney Diseases", url:"https://www.niddk.nih.gov/health-information/diabetes/overview/risk-factors-type-2-diabetes" },
+  { id:"src_niddk_dia_ch14", title:"Diabetes in America, 3rd edition — genetics chapter", org:"National Institute of Diabetes and Digestive and Kidney Diseases", url:"https://www.niddk.nih.gov/-/media/Files/Strategic-Plans/Diabetes-in-America-3rd-Edition/DIA_Ch14.pdf" },
+  { id:"src_pmid_36599349", title:"Aging biology and metabolism — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/36599349/" },
+  { id:"src_pmid_39828191", title:"Air pollution and type 2 diabetes risk — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/39828191/" },
+  { id:"src_endocrine_edc", title:"Endocrine-disrupting chemicals position statement", org:"Endocrine Society", url:"https://www.endocrine.org/advocacy/position-statements/endocrine-disrupting-chemicals" },
+  { id:"src_pmid_27760374", title:"Endocrine-disrupting chemicals and metabolism — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/27760374/" },
+  { id:"src_ada_2026_s009", title:"Standards of Care in Diabetes—2026: pharmacologic approaches", org:"American Diabetes Association", year:"2026", url:"https://doi.org/10.2337/dc26-s009" },
+  { id:"src_pmid_39085746", title:"Medication-related dysglycemia — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/39085746/" },
+  { id:"src_pmid_37347965", title:"Antipsychotics and metabolic adverse effects — PubMed record", org:"PubMed / National Library of Medicine", url:"https://pubmed.ncbi.nlm.nih.gov/37347965/" },
+  { id:"src_cdc_diabetes_testing", title:"Diabetes testing", org:"Centers for Disease Control and Prevention", url:"https://www.cdc.gov/diabetes/diabetes-testing/index.html" },
+  { id:"src_cdc_prediabetes_a1c", title:"Prediabetes and A1C test", org:"Centers for Disease Control and Prevention", url:"https://www.cdc.gov/diabetes/diabetes-testing/prediabetes-a1c-test.html" },
+  { id:"src_cdc_bp_risk", title:"High blood pressure risk factors", org:"Centers for Disease Control and Prevention", url:"https://www.cdc.gov/high-blood-pressure/risk-factors/index.html" },
+  { id:"src_acc_prevention", title:"2019 ACC/AHA primary prevention guideline tool", org:"American College of Cardiology / American Heart Association", year:"2019", url:"https://www.acc.org/-/media/Non-Clinical/Files-PDFs-Excel-MS-Word-etc/Guidelines/2019/B19193-Prevention-GMS-Tool.pdf" },
+  { id:"src_medline_alt", title:"ALT blood test", org:"MedlinePlus / National Library of Medicine", url:"https://medlineplus.gov/lab-tests/alt-blood-test/" },
+  { id:"src_aasld_masld", title:"Clinical assessment and management of MASLD", org:"American Association for the Study of Liver Diseases", url:"https://www.aasld.org/practice-guidelines/clinical-assessment-and-management-metabolic-dysfunction-associated-steatotic" },
+  { id:"src_springer_warburg", title:"The Warburg hypothesis and the emergence of the mitochondrial metabolic theory of cancer", org:"Springer Nature / Journal of Bioenergetics and Biomembranes", year:"2025", url:"https://link.springer.com/article/10.1007/s10863-025-10059-w" }
+];
+const SOURCES = Object.fromEntries(SOURCE_RECORDS.map(s => [s.id, s]));
+const GRADE_META = {
+  HIGH:{ cls:"s1", label:"HIGH" },
+  MODERATE:{ cls:"s2", label:"MODERATE" },
+  "ASSOCIATION ONLY":{ cls:"s2", label:"ASSOCIATION ONLY" },
+  "LOW/EMERGING":{ cls:"s3", label:"LOW / EMERGING" }
+};
+const LEGACY_GRADE = { s1:"HIGH", s2:"MODERATE", s3:"LOW/EMERGING" };
+const ev = (claim, strength, sourceIds = [], relationship = "ASSOCIATION ONLY", context = "Population-level evidence", note = "") => {
+  const grade = LEGACY_GRADE[strength] || strength;
+  return { claim, strength: GRADE_META[grade] ? GRADE_META[grade].cls : "s2", grade, sourceIds, relationship, context, note };
+};
 
 const NODES = [
   { id:"core", label:"Metabolic Health", category:"core",
@@ -1016,8 +1108,8 @@ const FACTORS = [
   { id:"f_hbot", label:"Hyperbaric Oxygen (HBOT)", mod:true, category:"factor",
     description:"Breathing concentrated oxygen at increased ambient pressure. Established for specific medical indications such as non-healing diabetic wounds. Early research is exploring effects on mitochondrial function, oxidative stress signaling, and inflammation. Its role in general metabolic health is not established, and sessions belong under qualified supervision.",
     connections:["mito","oxstress","inflam","energy"],
-    evidence:[ ev("Hyperbaric oxygen therapy is an established treatment for selected indications, including certain diabetic foot ulcers.","s1"),
-               ev("Small early studies suggest HBOT may influence mitochondrial and inflammatory signaling; evidence for general metabolic health outcomes is preliminary.","s3") ] },
+    evidence:[ ev("Hyperbaric oxygen therapy is an established treatment for selected indications, including certain diabetic foot ulcers.","s1",["src_uhms_indications"],"RECOGNIZED INDICATIONS","UHMS indication list; not generalized metabolic optimization."),
+               ev("Small early studies suggest HBOT may influence mitochondrial and inflammatory signaling; evidence for general metabolic health outcomes is preliminary.","s3",["src_pmid_34684171","src_pmid_41322229","src_pmid_34944468"],"UNDER INVESTIGATION","Small and mechanistic studies; not durable clinical-outcome evidence.") ] },
   { id:"f_sleep", label:"Sleep", mod:true, category:"factor",
     description:"Duration, timing, and quality of sleep. Short or disrupted sleep is associated with impaired glucose regulation, altered appetite hormones, and higher inflammatory markers.",
     connections:["glucose_reg","hormonal","inflam"],
@@ -1030,10 +1122,14 @@ const FACTORS = [
     description:"Lean mass and fat distribution act both as an input and an output of the system. Changing composition is associated with shifts in insulin sensitivity and inflammation.",
     connections:["bodycomp","insulin","inflam"],
     evidence:[ ev("Reductions in visceral fat are associated with improved insulin sensitivity.","s1") ] },
-  { id:"f_alcohol", label:"Alcohol / Tobacco Exposure", mod:true, category:"factor",
-    description:"Both exposures are associated with liver strain, oxidative stress, and cardiovascular risk in dose-dependent ways.",
+  { id:"f_alcohol", label:"Alcohol", mod:true, category:"factor",
+    description:"Heavy alcohol use can raise triglycerides, blood pressure and body weight, reduce insulin sensitivity, and increase type 2 diabetes risk. Alcohol is not a metabolic-health intervention.",
     connections:["liver","oxstress","cvd"],
-    evidence:[ ev("Alcohol intake is associated with hepatic fat accumulation and elevated triglycerides at higher doses.","s1") ] },
+    evidence:[ ev("Heavy alcohol use can raise triglycerides, blood pressure and body weight, reduce insulin sensitivity, and increase type 2 diabetes risk.","s1",["src_niaaa_alcohol"],"HARM / RISK","Population-level harm from heavy use.") ] },
+  { id:"f_tobacco", label:"Tobacco", mod:true, category:"factor",
+    description:"Tobacco use increases cardiovascular and diabetes risk; cessation is a core risk-reduction action.",
+    connections:["cvd","inflam"],
+    evidence:[ ev("Tobacco use increases cardiovascular and diabetes risk; cessation is a core risk-reduction action.","s1",["src_who_tobacco"],"HARM / RISK REDUCTION","Population-level harm and cessation guidance.") ] },
   { id:"f_meds", label:"Medications", mod:true, category:"factor",
     description:"Prescribed treatment is itself an input to the system, from glucose-lowering and lipid-lowering agents to therapies that affect weight or blood pressure. Medication decisions belong with the prescribing clinician.",
     connections:["glucose_reg","lipid","bodycomp"],
@@ -1051,6 +1147,64 @@ const FACTORS = [
     connections:["inflam","bodycomp"],
     evidence:[ ev("Environmental and socioeconomic context is associated with metabolic disease prevalence.","s2") ] }
 ];
+
+const claim = (title, text, grade, relationship, sourceIds, context, note = "") => ({ title, text, grade, relationship, sourceIds, context, note });
+const EVIDENCE_MODULES = [
+  { id:"core-model", title:"Core model and pathways", lede:"The model is a systems view of metabolic risk. It uses safe, population-level wording and does not treat any single pathway as the root cause of all disease.", claims:[
+    claim("Metabolic syndrome", "Metabolic syndrome is a cluster of central adiposity, elevated triglycerides, low HDL cholesterol, elevated blood pressure and elevated fasting glucose; meeting three or more commonly used criteria meets the definition.", "HIGH", "DEFINITION", ["src_nhlbi_metabolic_dx","src_aha_metabolic_dx","src_pmid_30171523"], "Clinical criteria; population-level definition."),
+    claim("Glucose regulation and insulin signaling", "Insulin suppresses hepatic glucose production and promotes glucose uptake in muscle and adipose tissue. Insulin resistance means these tissues respond less effectively, often producing higher glucose and compensatory hyperinsulinemia.", "HIGH", "PHYSIOLOGY", ["src_endotext_insulin"], "Human physiology; not a diagnosis from a single marker."),
+    claim("Lipid metabolism ↔ insulin resistance", "Elevated free fatty acids and ectopic lipid metabolites can impair insulin signaling; insulin resistance also reduces insulin’s suppression of lipolysis.", "MODERATE", "BIDIRECTIONAL / MECHANISTIC", ["src_endotext_insulin"], "Mechanistic physiology; direction and magnitude vary by tissue and person."),
+    claim("Inflammation ↔ adiposity / insulin resistance", "Visceral adiposity and insulin resistance are linked with altered adipokines and low-grade inflammatory signaling; these pathways may reinforce one another.", "MODERATE", "BIDIRECTIONAL ASSOCIATION", ["src_endotext_insulin","src_pmc_4412452","src_pmid_26207884"], "Population and mechanistic evidence; not individual causation."),
+    claim("Cellular energy regulation and mitochondria", "Mitochondrial function is associated with insulin sensitivity, but a simple one-way causal relationship is not established. Exercise reliably increases skeletal-muscle mitochondrial content and oxidative capacity.", "MODERATE", "ASSOCIATION / INTERVENTION", ["src_pmid_27448057","src_pmid_39390310"], "Exercise studies and metabolic physiology; not proof that mitochondrial dysfunction caused a person’s disease."),
+    claim("Mitochondrial measurement context", "A 2025 cancer-metabolism review cautions that oxygen consumption and lactate are not simple universal proxies for ATP production in cancer cells. This is mechanistic context only, not evidence that mitochondrial dysfunction causes metabolic syndrome.", "LOW/EMERGING", "CONTEXT ONLY", ["src_springer_warburg"], "Cancer-cell metabolism; do not generalize this review to clinical metabolic-syndrome risk.", "Added as the requested Springer citation with an explicit scope boundary.")
+  ]},
+  { id:"modifiable", title:"Modifiable influences", lede:"These factors can influence cardiometabolic risk, but suitability, dose and effects differ across people and clinical contexts.", claims:[
+    claim("Nutrition", "Dietary patterns emphasizing minimally processed foods, vegetables, fruit, pulses, whole grains and healthier fats—while limiting free sugars, sodium, trans fat and excess saturated fat—support cardiometabolic health.", "HIGH", "INTERVENTION / HEALTHY PATTERN", ["src_who_healthy_diet"], "General population guidance; individual needs vary."),
+    claim("Intermittent fasting", "Intermittent-fasting strategies can reduce weight and some cardiometabolic risk markers, but overall benefits are generally similar to continuous energy restriction. Long-term effects and individual suitability remain uncertain.", "MODERATE", "INTERVENTION, QUALIFIED", ["src_pmid_40533200"], "Trial evidence; not uniquely superior and not safe or appropriate for everyone."),
+    claim("Physical activity", "Regular aerobic and resistance activity improves insulin sensitivity and glucose regulation and reduces cardiometabolic risk; benefits vary with dose and individual health.", "HIGH", "INTERVENTION", ["src_who_pa","src_pmid_28879026"], "Guideline and intervention evidence; adapt for health status."),
+    claim("Sleep", "Sleep duration, quality and timing affect metabolic function; experimentally restricting sleep reduces measured insulin sensitivity.", "MODERATE", "INTERVENTION / PHYSIOLOGY", ["src_pmid_35189549"], "Experimental sleep restriction; generic sleep claims do not diagnose sleep apnea."),
+    claim("Stress", "Chronic psychosocial stress is associated with metabolic vulnerability, but effects differ by stress type, population and outcome. Causal effects on an individual’s metabolic markers are not firmly established.", "LOW/EMERGING", "ASSOCIATION ONLY", ["src_pmid_24743684","src_pmid_42365351","src_pmid_29800780"], "Observational and heterogeneous evidence; cortisol is not presented as a sole cause."),
+    claim("Body composition and visceral adiposity", "Waist circumference adds cardiometabolic-risk information beyond BMI and is a practical proxy for abdominal adiposity. Visceral fat is linked to insulin resistance, altered lipolysis and inflammatory adipokines.", "HIGH", "RISK PREDICTION / PATHWAY", ["src_pmid_32020062"], "Risk prediction is stronger than a simple one-way pathway claim."),
+    claim("Alcohol", "Heavy alcohol use can raise triglycerides, blood pressure and body weight, reduce insulin sensitivity, and increase type 2 diabetes risk. Alcohol is not a metabolic-health intervention.", "HIGH", "HARM / RISK", ["src_niaaa_alcohol"], "Heavy use and dose matter; this is not a recommendation about an individual’s drinking plan."),
+    claim("Tobacco", "Tobacco use increases cardiovascular and diabetes risk; cessation is a core risk-reduction action.", "HIGH", "HARM / RISK REDUCTION", ["src_who_tobacco"], "Population-level harm and cessation guidance."),
+    claim("HBOT", "Small studies involving people with diabetes suggest HBOT may transiently lower glucose or increase insulin sensitivity, but robust randomized trials and durable clinical-outcome evidence are lacking. HBOT is not an established treatment for metabolic syndrome, insulin resistance or glucose control.", "LOW/EMERGING", "UNDER INVESTIGATION", ["src_pmid_34684171","src_pmid_41322229","src_pmid_34944468"], "Small and mechanistic studies; surrogate measurements are not durable clinical outcomes.", "Recognized indications and safety are separate from metabolic optimization claims.")
+  ]},
+  { id:"context", title:"Non-modifiable and contextual influences", lede:"Risk factors shape probability at the population level; they are not destiny and do not identify what caused an individual outcome.", claims:[
+    claim("Genetics and family history", "Type 2 diabetes risk reflects many genetic variants interacting with behavior and environment. Family history raises risk but does not determine outcome.", "HIGH", "RISK FACTOR", ["src_niddk_t2d_risk","src_niddk_dia_ch14","src_pmid_30171523"], "Population risk; not deterministic."),
+    claim("Age", "Type 2 diabetes and metabolic-syndrome risk generally increase with age, while disease can occur at any age.", "HIGH", "POPULATION ASSOCIATION", ["src_niddk_t2d_risk","src_pmid_36599349"], "Population association; aging biology does not provide an individual risk estimate."),
+    claim("Environment", "Long-term exposure to outdoor air pollution is associated with higher type 2 diabetes risk; observational evidence does not prove that a specific exposure caused an individual’s disease. Some endocrine-disrupting chemicals are under study as metabolism-disrupting exposures, but evidence differs by chemical and outcome.", "MODERATE", "ASSOCIATION ONLY", ["src_pmid_39828191","src_endocrine_edc","src_pmid_27760374"], "Observational exposure evidence; chemical-specific and outcome-specific uncertainty."),
+    claim("Medications", "Some medicines—especially glucocorticoids and certain antipsychotic, immunosuppressive and cancer therapies—can worsen glycemia through effects on insulin sensitivity, hepatic glucose output or insulin secretion. Medication effects must be individualized; never advise stopping a prescribed drug.", "HIGH", "CLASS- AND PERSON-SPECIFIC EFFECT", ["src_ada_2026_s009","src_pmid_39085746","src_pmid_37347965"], "Medication class, dose, duration and indication matter; prescribing clinician review is required.")
+  ]},
+  { id:"markers", title:"Markers and claim-safe interpretation", lede:"A marker is a measurement, not a diagnosis of the whole model. Trends, repeat testing, units, symptoms and clinical context matter.", claims:[
+    claim("Fasting glucose and HbA1c", "Fasting glucose is a point-in-time measure after an overnight fast; HbA1c estimates average glycemia over roughly two to three months. Diagnosis requires accepted thresholds and usually clinical confirmation.", "HIGH", "MEASUREMENT / DIAGNOSTIC CONTEXT", ["src_cdc_diabetes_testing","src_cdc_prediabetes_a1c"], "Testing conditions, acute illness, red-cell turnover, hemoglobin variants and laboratory methods can affect interpretation."),
+    claim("Fasting insulin / HOMA-IR", "Fasting insulin can add context, and calculated measures such as HOMA-IR are used in research, but values depend on assay, population and clinical context. There is no universal diagnostic cutoff for insulin resistance.", "MODERATE", "CONTEXTUAL / RESEARCH MARKER", ["src_endotext_insulin"], "Do not use fasting insulin alone as a diagnosis."),
+    claim("Triglycerides and HDL-C", "Triglycerides at or above 150 mg/dL and low HDL-C are commonly used metabolic-syndrome criteria; interpret them with the full lipid and clinical picture.", "HIGH", "CRITERION / RISK MARKER", ["src_nhlbi_metabolic_dx","src_aha_metabolic_dx"], "Cut points and interpretation belong to the complete clinical picture."),
+    claim("Blood pressure", "Blood pressure is both a metabolic-syndrome component and an independent cardiovascular-risk factor. Repeated, correctly measured readings matter more than a single value.", "HIGH", "RISK MARKER", ["src_aha_metabolic_dx","src_cdc_bp_risk"], "Measurement technique and repeated readings matter."),
+    claim("Waist circumference", "Waist circumference estimates abdominal adiposity and adds risk information beyond BMI. Cut points differ by sex and ethnicity, so the app should not use one universal global threshold.", "HIGH", "RISK MARKER", ["src_pmid_32020062","src_acc_prevention"], "Sex-, ancestry- and context-aware cut points are required."),
+    claim("ALT / AST", "ALT and AST can signal liver-cell injury but are not specific for metabolic disease, do not directly measure liver function, and can be normal despite clinically important steatotic liver disease.", "HIGH", "NON-SPECIFIC MARKER", ["src_medline_alt","src_aasld_masld"], "Normal enzymes do not rule out clinically important liver disease."),
+    claim("hs-CRP", "hs-CRP reflects systemic inflammation and, when persistently elevated, can refine cardiovascular-risk discussion. It is nonspecific and does not identify the source of inflammation.", "MODERATE", "RISK-ENHANCING / NON-SPECIFIC", ["src_acc_prevention"], "Do not present hs-CRP as proof of metabolic inflammation.")
+  ]},
+  { id:"legend", title:"Relationship legend", lede:"The visualization uses lines to show relationships, not arrows that prove individual causation.", claims:[
+    claim("HIGH", "Healthy dietary pattern → lower cardiometabolic risk; physical activity → improved insulin sensitivity; sleep restriction → reduced insulin sensitivity; heavy alcohol/tobacco exposure → harm.", "HIGH", "INTERVENTION OR HARM", ["src_who_healthy_diet","src_who_pa","src_pmid_28879026","src_pmid_35189549","src_niaaa_alcohol","src_who_tobacco"], "Guidelines and intervention evidence; effects vary with dose and person."),
+    claim("MODERATE", "Visceral adiposity ↔ insulin resistance/inflammation; lipid flux ↔ insulin signaling; exercise → mitochondrial adaptations.", "MODERATE", "BIDIRECTIONAL / MECHANISTIC", ["src_endotext_insulin","src_pmid_32020062","src_pmid_27448057","src_pmid_39390310"], "Mechanism and association do not equal clinical-outcome proof."),
+    claim("ASSOCIATION ONLY", "Stress → metabolic outcomes; age/genetics/environment → risk; hs-CRP and ALT/AST → possible underlying processes; medication effects vary by class, dose and person.", "ASSOCIATION ONLY", "NONCAUSAL ASSOCIATION", ["src_pmid_24743684","src_niddk_t2d_risk","src_pmid_39828191","src_acc_prevention","src_medline_alt","src_ada_2026_s009"], "Never state individual causation from these relationships."),
+    claim("LOW / EMERGING", "HBOT → glucose or insulin-sensitivity measurements. Label under investigation, never recommended metabolic intervention.", "LOW/EMERGING", "UNDER INVESTIGATION", ["src_pmid_34684171","src_pmid_41322229","src_uhms_indications","src_fda_hbot"], "The HBOT mitochondrial paper supports possible mechanisms, not treatment of metabolic syndrome.")
+  ]},
+  { id:"safety", title:"Medical, fasting and HBOT safety", lede:"This is educational software—not a diagnostic or treatment tool. Do not build an automated diagnosis from a single value. Flag critical or repeatedly abnormal results for clinician review.", claims:[
+    claim("Lab interpretation", "Interpret results alongside symptoms, acute illness, medications, pregnancy, red-cell turnover, kidney or liver disease, hemoglobin variants, testing conditions and laboratory methods. Never stop or alter a prescribed medication based on this app.", "HIGH", "SAFETY", ["src_cdc_diabetes_testing","src_cdc_prediabetes_a1c","src_endotext_insulin","src_aasld_masld"], "Clinical review is required for abnormal or changing results."),
+    claim("Fasting safety", "Require clinician review before fasting for people using insulin or sulfonylureas; anyone otherwise at risk of hypoglycemia; pregnancy or breastfeeding; children and adolescents; current or previous eating disorders; frail or underweight older adults; and significant chronic disease.", "MODERATE", "SAFETY / QUALIFIED", ["src_pmid_40533200","src_cdc_diabetes_testing"], "Warn about hypoglycemia, dehydration, dizziness, medication timing and disordered-eating risk. Fasting is not mandatory."),
+    claim("HBOT safety and scope", "Present HBOT only as clinician-supervised care for recognized indications. UHMS indications do not include generalized metabolic optimization. FDA guidance addresses fire, oxygen and pressure risks; potential harms include ear or sinus barotrauma, oxygen toxicity, temporary vision changes, claustrophobia and glucose changes.", "HIGH", "SAFETY / REGULATORY SCOPE", ["src_uhms_indications","src_fda_hbot"], "Do not recommend home or soft chambers, prescribe pressure or duration, or imply wellness-clinic availability proves efficacy or authorization.")
+  ]},
+  { id:"missing", title:"Missing modules", lede:"These modules remain out of the published claim layer until direct, condition-specific sources and evidence grades are attached.", missing:["Kidney function: eGFR and urine albumin-to-creatinine ratio","MASLD / liver assessment and fibrosis risk","Full atherogenic-lipid risk: LDL-C, non-HDL-C and optional ApoB","Social determinants and food/activity environment","Pregnancy, gestational diabetes, PCOS and menopause as distinct contexts","Circadian timing and shift work","Fitness, muscle mass and sarcopenia","Sleep apnea as distinct from generic short sleep","Drug-class-specific medication monitoring","Measurement quality, units, trends, repeat testing and uncertainty","Surrogate markers versus hard outcomes such as diabetes, cardiovascular disease, liver disease and mortality","Sex-, ancestry- and pregnancy-aware thresholds"] }
+];
+
+const DEFAULT_SOURCE_IDS = {
+  core:["src_nhlbi_metabolic_dx","src_aha_metabolic_dx","src_pmid_30171523"], insulin:["src_endotext_insulin"], mito:["src_pmid_27448057","src_pmid_39390310"], inflam:["src_endotext_insulin","src_pmc_4412452","src_pmid_26207884"], oxstress:["src_pmc_4412452","src_pmid_34944468"], glucose_reg:["src_endotext_insulin","src_cdc_diabetes_testing"], lipid:["src_endotext_insulin"], energy:["src_pmid_27448057"], hormonal:["src_endotext_insulin"], bodycomp:["src_pmid_32020062"],
+  bp:["src_aha_metabolic_dx","src_cdc_bp_risk"], glu:["src_cdc_diabetes_testing"], tg:["src_nhlbi_metabolic_dx","src_aha_metabolic_dx"], waist:["src_pmid_32020062","src_acc_prevention"], liver:["src_aasld_masld"], cvd:["src_acc_prevention"], fatigue:["src_pmid_27448057"], mito_c:["src_pmid_27448057","src_pmid_39390310"], atp:["src_pmid_27448057"], oxs_c:["src_pmid_34944468"], nutrient:["src_endotext_insulin"], signal_c:["src_endotext_insulin"],
+  f_nutrition:["src_who_healthy_diet"], f_if:["src_pmid_40533200"], f_activity:["src_who_pa","src_pmid_28879026"], f_hbot:["src_pmid_34684171","src_pmid_41322229","src_pmid_34944468","src_uhms_indications","src_fda_hbot"], f_sleep:["src_pmid_35189549"], f_stress:["src_pmid_24743684","src_pmid_42365351","src_pmid_29800780"], f_body:["src_pmid_32020062"], f_alcohol:["src_niaaa_alcohol"], f_tobacco:["src_who_tobacco"], f_meds:["src_ada_2026_s009","src_pmid_39085746","src_pmid_37347965"], f_genetics:["src_niddk_t2d_risk","src_niddk_dia_ch14","src_pmid_30171523"], f_age:["src_niddk_t2d_risk","src_pmid_36599349"], f_env:["src_pmid_39828191","src_endocrine_edc","src_pmid_27760374"]
+};
+NODES.forEach(n => (n.evidence || []).forEach(e => { if (!e.sourceIds.length) e.sourceIds = DEFAULT_SOURCE_IDS[n.id] || []; }));
+FACTORS.forEach(n => (n.evidence || []).forEach(e => { if (!e.sourceIds.length) e.sourceIds = DEFAULT_SOURCE_IDS[n.id] || []; }));
 
 const SYMPTOMS = [
   { id:"s_bp", label:"High Blood Pressure", tx:"antihypertensive therapy", a:9.5, b:7.5, tiltZ:0.35, tiltX:0.55, speed:0.20, phase:0.2, epi:1.1, col:0x7E93B4 },
@@ -1620,13 +1774,10 @@ function selectNode(id) {
     npConns.appendChild(b);
   });
   npEvidence.innerHTML = "";
-  const sMap = { s1: "Established association", s2: "Consistent evidence", s3: "Emerging evidence" };
   (def.evidence || []).forEach(e => {
     const d = document.createElement("div");
     d.className = "ev-item";
-    d.innerHTML = "<p class='claim'>" + e.claim + "</p>" +
-      "<div class='meta'><span class='ev-strength " + e.strength + "'>" + sMap[e.strength] + "</span>" +
-      "<span class='ev-ref'>" + e.ref + "</span></div>";
+    d.innerHTML = "<p class='claim'>" + escapeHtml(e.claim) + "</p>" + evidenceMetaHtml(e);
     npEvidence.appendChild(d);
   });
   npEl.classList.add("open");
@@ -2011,25 +2162,50 @@ function ripple(startId) {
 }
 
 /* ---------- evidence grid ---------- */
+function escapeHtml(value) {
+  return String(value == null ? "" : value).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
+}
+function sourceHtml(ids) {
+  const records = [...new Set(ids || [])].map(id => SOURCES[id]).filter(Boolean);
+  if (!records.length) return "<p class='ev-ref'>No source record attached.</p>";
+  return "<div class='source-links'>" + records.map(source => {
+    const year = source.year ? " · " + source.year : "";
+    return "<a class='source-link' href='" + escapeHtml(source.url) + "' target='_blank' rel='noopener noreferrer'>" + escapeHtml(source.title) + " <small>" + escapeHtml(source.org + year + " · last reviewed " + LAST_REVIEWED) + "</small></a>";
+  }).join("") + "</div>";
+}
+function evidenceMetaHtml(e) {
+  const meta = GRADE_META[e.grade] || GRADE_META.MODERATE;
+  return "<div class='meta'><span class='ev-strength " + meta.cls + "'>" + escapeHtml(meta.label) + "</span>" +
+    "<span class='ev-relationship'>" + escapeHtml(e.relationship || "ASSOCIATION ONLY") + "</span></div>" +
+    "<p class='ev-context' style='font-size:11px;color:var(--ink-faint);line-height:1.5;margin-top:9px'>" + escapeHtml(e.context || "Population-level evidence") + "</p>" +
+    (e.note ? "<p class='ev-context' style='font-size:11px;color:var(--solar-hi);line-height:1.5;margin-top:6px'>" + escapeHtml(e.note) + "</p>" : "") + sourceHtml(e.sourceIds);
+}
+function claimHtml(c) {
+  const meta = GRADE_META[c.grade] || GRADE_META.MODERATE;
+  return "<article class='claim-card'><h4>" + escapeHtml(c.title) + "</h4><p>" + escapeHtml(c.text) + "</p>" +
+    "<div class='meta'><span class='ev-strength " + meta.cls + "'>" + escapeHtml(meta.label) + "</span>" +
+    "<span class='ev-relationship'>" + escapeHtml(c.relationship) + "</span></div>" +
+    "<p class='claim-note'>" + escapeHtml(c.context) + "</p>" +
+    (c.note ? "<p class='claim-note' style='color:var(--solar-hi)'>" + escapeHtml(c.note) + "</p>" : "") + sourceHtml(c.sourceIds) + "</article>";
+}
 function buildEvidenceGrid() {
-  const picks = [
-    ["insulin", 0], ["inflam", 1], ["mito", 0], ["bodycomp", 0],
-    ["f_if", 0], ["f_hbot", 1], ["f_sleep", 0], ["oxstress", 0]
-  ];
-  const sMap = { s1: "Established association", s2: "Consistent evidence", s3: "Emerging evidence" };
-  const grid = $("#evGrid");
-  picks.forEach(([id, i]) => {
-    const n = nodeById[id];
-    if (!n || !n.evidence || !n.evidence[i]) return;
-    const e = n.evidence[i];
-    const d = document.createElement("div");
-    d.className = "ev-card";
-    d.innerHTML = "<h5>" + n.label + "</h5><p>" + e.claim + "</p>" +
-      "<div class='meta' style='margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap'>" +
-      "<span class='ev-strength " + e.strength + "'>" + sMap[e.strength] + "</span>" +
-      "<span class='ev-ref'>" + e.ref + "</span></div>";
-    grid.appendChild(d);
+  const root = $("#evidenceModules");
+  const library = $("#sourceLibrary");
+  if (!root || !library) return;
+  root.innerHTML = "";
+  EVIDENCE_MODULES.forEach(module => {
+    const section = document.createElement("section");
+    section.className = "evidence-module";
+    let html = "<h3>" + escapeHtml(module.title) + "</h3><p class='module-lede'>" + escapeHtml(module.lede) + "</p>";
+    if (module.claims) html += "<div class='claim-grid'>" + module.claims.map(claimHtml).join("") + "</div>";
+    if (module.missing) html += "<div class='missing-list'>" + module.missing.map(item => "<div>" + escapeHtml(item) + "<br><small>Direct source and evidence grade required before publication.</small></div>").join("") + "</div>";
+    section.innerHTML = html;
+    root.appendChild(section);
   });
+  library.innerHTML = "<h3>Canonical source library</h3>" + SOURCE_RECORDS.map(source => {
+    const year = source.year ? " · " + source.year : "";
+    return "<article class='source-card'><h4>" + escapeHtml(source.title) + "</h4><p>" + escapeHtml(source.org + year) + "<br>Last reviewed " + LAST_REVIEWED + "</p><a href='" + escapeHtml(source.url) + "' target='_blank' rel='noopener noreferrer'>" + escapeHtml(source.url) + "</a></article>";
+  }).join("");
 }
 </script>
 <script>
