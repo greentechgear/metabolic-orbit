@@ -34,12 +34,12 @@
   --ease-out:cubic-bezier(.16,1,.3,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:auto}
-html,body{background:var(--void)}
+html{scroll-behavior:auto;overflow-x:hidden;font-size:106.25%}
+html,body{background:var(--void);max-width:100%;overflow-x:hidden}
 body{
   font-family:var(--body);
   color:var(--ink);
-  font-size:16px;
+  font-size:1rem;
   line-height:1.6;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
@@ -57,7 +57,7 @@ button{font-family:inherit;cursor:pointer}
 #stage canvas{display:block;width:100%;height:100%}
 #stage.interactive{pointer-events:auto}
 #labels{position:fixed;inset:0;z-index:3;pointer-events:none;overflow:hidden}
-#content{position:relative;z-index:2;pointer-events:none}
+#content{position:relative;z-index:2;pointer-events:none;max-width:100%;overflow-x:hidden}
 #content section,#content footer{pointer-events:none}
 #hero .wrap,.flow .wrap,footer .wrap,#finale .fl.last,
 .pin-panel button,.pin-panel input,.shift-rail{pointer-events:auto}
@@ -95,19 +95,19 @@ nav{
   padding:18px clamp(20px,4vw,48px);
   background:linear-gradient(to bottom, rgba(5,7,10,.85), rgba(5,7,10,0));
 }
-nav .mark{font-family:var(--display);font-weight:600;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);text-decoration:none;flex-shrink:0}
+nav .mark{font-family:var(--display);font-weight:600;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);text-decoration:none;flex-shrink:0}
 nav .mark em{font-style:normal;color:var(--solar)}
-nav .links{display:flex;gap:22px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+nav .links{display:flex;gap:22px;margin-left:auto;overflow:visible;scrollbar-width:none}
 nav .links::-webkit-scrollbar{display:none}
 nav .links a{
-  font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;
+  font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;
   color:var(--ink-faint);transition:color .3s;white-space:nowrap;padding:4px 0;
 }
 nav .links a:hover,nav .links a:focus-visible{color:var(--ink)}
 #motionToggle{
   margin-left:14px;flex-shrink:0;
   background:none;border:1px solid var(--hair);border-radius:999px;
-  color:var(--ink-faint);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-faint);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
   padding:6px 12px;transition:color .3s,border-color .3s;
 }
 #motionToggle:hover{color:var(--ink);border-color:var(--ink-faint)}
@@ -116,7 +116,7 @@ nav .links a:hover,nav .links a:focus-visible{color:var(--ink)}
 section{position:relative}
 .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
 .kicker{
-  font-family:var(--display);font-size:11.5px;font-weight:500;
+  font-family:var(--display);font-size:12.5px;font-weight:500;
   letter-spacing:.32em;text-transform:uppercase;color:var(--solar);
   display:flex;align-items:center;gap:14px;
 }
@@ -126,7 +126,7 @@ h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.06;letter-spac
 .display-l{font-size:clamp(2rem,4.6vw,3.6rem)}
 .display-m{font-size:clamp(1.4rem,2.6vw,2rem);font-weight:400}
 .lede{font-size:clamp(1.02rem,1.4vw,1.2rem);color:var(--ink-dim);max-width:56ch;font-weight:300}
-.small-note{font-size:12px;color:var(--ink-faint);letter-spacing:.02em}
+.small-note{font-size:13px;color:var(--ink-faint);letter-spacing:.02em}
 .rule{height:1px;background:var(--hair);border:none}
 
 /* ---------- hero ---------- */
@@ -461,9 +461,9 @@ h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.06;letter-spac
 .claim-card .meta,.source-card .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
 .ev-relationship{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);border:1px solid var(--hair);border-radius:999px;padding:4px 8px;font-family:var(--display)}
 .source-links{display:flex;flex-direction:column;gap:5px;margin-top:10px}
-.source-link{font-size:11px;color:var(--path);text-decoration:none;line-height:1.45}
+.source-link{font-size:12px;color:var(--path);text-decoration:none;line-height:1.45;overflow-wrap:anywhere}
 .source-link:hover,.source-link:focus-visible{color:var(--solar-hi);text-decoration:underline}
-.source-link small{color:var(--ink-faint);font-size:10px}
+.source-link small{color:var(--ink-faint);font-size:10.5px}
 .source-library{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:10px;margin-top:22px}
 .source-library h3{grid-column:1/-1;font-size:clamp(1.25rem,2.2vw,1.7rem);margin:12px 0 4px}
 .source-card{border:1px solid var(--hair);border-radius:2px;padding:14px 15px;background:rgba(255,255,255,.01)}
@@ -488,21 +488,8 @@ h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.06;letter-spac
 .about-cols li{padding:7px 0;border-bottom:1px solid var(--hair)}
 footer{padding:60px 0 130px;border-top:1px solid var(--hair);margin-top:10vh}
 footer .wrap{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:baseline}
-footer .mark{font-family:var(--display);letter-spacing:.24em;text-transform:uppercase;font-size:12px;color:var(--ink-dim)}
+footer .mark{font-family:var(--display);letter-spacing:.24em;text-transform:uppercase;font-size:13px;color:var(--ink-dim)}
 footer .mark em{font-style:normal;color:var(--solar)}
-
-/* ---------- persistent disclaimer ---------- */
-#disclaimer{
-  position:fixed;left:0;right:0;bottom:0;z-index:12;
-  background:rgba(6,9,14,.94);border-top:1px solid var(--hair);backdrop-filter:blur(8px);
-  padding:9px clamp(16px,3vw,40px);
-  display:flex;gap:14px;align-items:center;justify-content:center;
-}
-#disclaimer p{font-size:10.5px;line-height:1.45;color:var(--ink-faint);max-width:980px;text-align:center}
-#disclaimer .i{
-  flex-shrink:0;width:16px;height:16px;border-radius:50%;border:1px solid var(--ink-faint);
-  color:var(--ink-faint);font-size:9px;display:flex;align-items:center;justify-content:center;font-family:var(--display);
-}
 
 /* ---------- reduced motion ---------- */
 html[data-motion="reduced"] .scroll-hint::after,
@@ -515,14 +502,17 @@ html[data-motion="reduced"] *{transition-duration:.01ms !important}
 
 /* ---------- responsive ---------- */
 @media (max-width:900px){
+  html{font-size:112.5%;overflow-x:hidden}
+  body{overflow-x:hidden}
   nav{
     gap:12px;
     padding:14px 20px;
+    flex-wrap:wrap;
     background:linear-gradient(to bottom,rgba(5,7,10,.96),rgba(5,7,10,.9) 78%,rgba(5,7,10,0));
   }
-  nav .mark{font-size:10.5px;letter-spacing:.16em}
-  nav .links{gap:16px;min-width:0;flex:1 1 auto}
-  nav .links a{font-size:9.5px}
+  nav .mark{font-size:11.5px;letter-spacing:.16em}
+  nav .links{order:3;gap:4px 12px;min-width:0;width:100%;flex:1 1 100%;margin-left:0;overflow:visible;flex-wrap:wrap;justify-content:space-between}
+  nav .links a{font-size:11px}
   .story-grid{grid-template-columns:1fr;gap:26px}
   #storyArt{max-width:min(58vw,320px)}
   .story-lines{min-height:150px;isolation:isolate}
@@ -553,9 +543,8 @@ html[data-motion="reduced"] *{transition-duration:.01ms !important}
   .compare-stage .cmp-title{top:12px;left:12px;right:auto;font-size:8.5px;letter-spacing:.2em;padding:4px 6px;background:rgba(5,7,10,.82);border-radius:2px}
   .compare-stage .cmp-title.right{top:36px;right:12px;left:auto}
   #motionToggle{display:none}
-  #disclaimer p{font-size:9.5px}
   .hud-tools{gap:10px;padding:14px;background:linear-gradient(180deg,rgba(5,7,10,.84),rgba(5,7,10,.7));border:1px solid rgba(154,167,184,.12);border-radius:10px}
-  #explore .hud{padding-bottom:104px}
+  #explore .hud{padding-bottom:40px}
   #explore .hud-head{position:relative;isolation:isolate}
   #explore .zoomer{width:100%;min-width:0}
   #explore .seg{display:flex;width:100%}
@@ -574,6 +563,9 @@ html[data-motion="reduced"] *{transition-duration:.01ms !important}
   #hero .scroll-hint{display:none}
   #explore .top{position:relative;height:auto;min-height:100svh}
   #explore .hud{position:relative;height:auto;min-height:100svh}
+}
+@media (max-width:380px){
+  #hero .scroll-hint{display:none}
 }
 /* Reduced motion keeps the narrative in a readable, non-pinned layout. */
 html[data-motion="reduced"] #stage canvas{opacity:.72}
@@ -910,12 +902,6 @@ html[data-motion="reduced"] #finale .fl{
   </div>
   <p class="panel-disclaimer">Relationship language is deliberately hedged where causation is not firmly established. Sources are canonical records with direct URLs and a shared last-reviewed date.</p>
 </aside>
-
-<!-- persistent disclaimer -->
-<div id="disclaimer" role="note">
-  <span class="i">i</span>
-  <p>This app summarizes population-level evidence, risk relationships and trends; it does not diagnose disease or prescribe treatment. Biomarkers can be affected by illness, medications, testing conditions and laboratory methods. Discuss abnormal or changing results—and any fasting, exercise, medication or HBOT plan—with a qualified clinician.</p>
-</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
