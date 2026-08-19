@@ -7,7 +7,15 @@
 <meta name="description" content="An interactive model that changes the vantage point on chronic metabolic risk. Educational, not medical advice.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" crossorigin="anonymous">
+<noscript><style>
+  #content section,#content footer,#content .story-line,#content .beat,#content .qline,
+  #content .float-quote,#content .model-tag,#content .complement-note,#content #finale .fl{
+    opacity:1 !important;visibility:visible !important;transform:none !important;
+  }
+  #stage,#labels{display:none !important}
+  #content,#content section,#content footer{pointer-events:auto !important}
+</style></noscript>
 <style>
 /* ============================================================
    THE METABOLIC COPERNICAN SHIFT
@@ -19,7 +27,7 @@
   --navy-2:#0E1A2E;
   --ink:#E8EDF4;
   --ink-dim:#9AA7B8;
-  --ink-faint:#5C6980;
+  --ink-faint:#7A8CA4;
   --solar:#F5B94A;
   --solar-hi:#FFD98A;
   --solar-deep:#B87A1E;
@@ -34,14 +42,13 @@
   --ease-out:cubic-bezier(.16,1,.3,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:auto;overflow-x:hidden;font-size:106.25%}
-html,body{background:var(--void);max-width:100%;overflow-x:hidden}
+html{scroll-behavior:auto;font-size:106.25%}
+html,body{background:var(--void);max-width:100%}
 body{
   font-family:var(--body);
   color:var(--ink);
   font-size:1rem;
   line-height:1.6;
-  overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
   background:
     radial-gradient(1200px 800px at 78% 12%, rgba(14,26,46,.55), transparent 60%),
@@ -57,10 +64,8 @@ button{font-family:inherit;cursor:pointer}
 #stage canvas{display:block;width:100%;height:100%}
 #stage.interactive{pointer-events:auto}
 #labels{position:fixed;inset:0;z-index:3;pointer-events:none;overflow:hidden}
-#content{position:relative;z-index:2;pointer-events:none;max-width:100%;overflow-x:hidden}
-#content section,#content footer{pointer-events:none}
-#hero .wrap,.flow .wrap,footer .wrap,#finale .fl.last,
-.pin-panel button,.pin-panel input,.shift-rail{pointer-events:auto}
+#content{position:relative;z-index:2;max-width:100%}
+#content section,#content footer{pointer-events:auto}
 
 /* ---------- projected 3D labels ---------- */
 .lbl{
@@ -82,6 +87,7 @@ button{font-family:inherit;cursor:pointer}
 .lbl.hot .t{color:var(--ink);text-shadow:0 0 14px rgba(87,212,200,.55)}
 .lbl.hot.ember .t{text-shadow:0 0 14px rgba(224,106,74,.55)}
 .lbl.pick{cursor:pointer}
+.lbl.pick:focus-visible{outline:2px solid var(--solar);outline-offset:6px;border-radius:4px}
 .lbl .dot{display:none}
 .lbl.factor{pointer-events:auto}
 .lbl.factor .t{font-size:11px;letter-spacing:.12em;padding:6px 12px;border:1px solid var(--hair);border-radius:999px;background:rgba(8,12,19,.72);backdrop-filter:blur(4px)}
@@ -92,7 +98,7 @@ button{font-family:inherit;cursor:pointer}
 nav{
   position:fixed;top:0;left:0;right:0;z-index:10;
   display:flex;align-items:center;gap:28px;
-  padding:18px clamp(20px,4vw,48px);
+  padding:calc(18px + env(safe-area-inset-top)) clamp(20px,4vw,48px) 18px;
   background:linear-gradient(to bottom, rgba(5,7,10,.85), rgba(5,7,10,0));
 }
 nav .mark{font-family:var(--display);font-weight:600;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);text-decoration:none;flex-shrink:0}
@@ -104,6 +110,7 @@ nav .links a{
   color:var(--ink-faint);transition:color .3s;white-space:nowrap;padding:4px 0;
 }
 nav .links a:hover,nav .links a:focus-visible{color:var(--ink)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--solar);outline-offset:4px}
 #menuToggle{
   display:none;align-items:center;justify-content:center;gap:4px;flex-direction:column;
   width:42px;height:42px;margin-left:auto;flex-shrink:0;
@@ -245,6 +252,7 @@ h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.06;letter-spac
   background:var(--void);border:2px solid var(--solar);box-shadow:0 0 16px rgba(245,185,74,.5);
 }
 #shiftSlider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--void);border:2px solid var(--solar);box-shadow:0 0 16px rgba(245,185,74,.5)}
+#shiftSlider:focus-visible{outline:2px solid var(--solar);outline-offset:5px}
 
 /* ---------- explore ---------- */
 #explore{min-height:132vh}
@@ -317,6 +325,7 @@ h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.06;letter-spac
 .ev-strength{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;padding:4px 9px;border-radius:999px;font-family:var(--display)}
 .ev-strength.s1{color:var(--path);border:1px solid rgba(87,212,200,.4)}
 .ev-strength.s2{color:var(--solar);border:1px solid rgba(245,185,74,.4)}
+.ev-strength.s2a{color:#B8C6D8;border:1px dashed rgba(184,198,216,.55)}
 .ev-strength.s3{color:var(--ink-dim);border:1px solid var(--hair)}
 .ev-ref{font-size:11px;color:var(--ink-faint);font-style:italic}
 .panel-disclaimer{font-size:11px;color:var(--ink-faint);border-top:1px solid var(--hair);padding:14px 28px;line-height:1.5}
@@ -422,6 +431,7 @@ h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.06;letter-spac
 .metric input[type=range]{
   -webkit-appearance:none;appearance:none;width:100%;height:2px;background:rgba(154,167,184,.25);border-radius:2px;outline:none;
 }
+.metric input[type=range]:focus-visible{outline:2px solid var(--solar);outline-offset:5px}
 .metric input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--path);box-shadow:0 0 10px rgba(87,212,200,.6);cursor:ew-resize}
 .metric input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--path);border:none;cursor:ew-resize}
 .metric .mval{font-family:var(--display);font-size:.95rem;font-weight:600;color:var(--path);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -497,7 +507,7 @@ h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.06;letter-spac
 .about-cols p,.about-cols li{font-size:.9rem;color:var(--ink-dim);font-weight:300;line-height:1.7}
 .about-cols ul{list-style:none}
 .about-cols li{padding:7px 0;border-bottom:1px solid var(--hair)}
-footer{padding:60px 0 130px;border-top:1px solid var(--hair);margin-top:10vh}
+footer{padding:60px 0 calc(130px + env(safe-area-inset-bottom));border-top:1px solid var(--hair);margin-top:10vh}
 footer .wrap{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:baseline}
 footer .mark{font-family:var(--display);letter-spacing:.24em;text-transform:uppercase;font-size:13px;color:var(--ink-dim)}
 footer .mark em{font-style:normal;color:var(--solar)}
@@ -513,11 +523,10 @@ html[data-motion="reduced"] *{transition-duration:.01ms !important}
 
 /* ---------- responsive ---------- */
 @media (max-width:900px){
-  html{font-size:112.5%;overflow-x:hidden}
-  body{overflow-x:hidden}
+  html{font-size:112.5%}
   nav{
     gap:12px;
-    padding:14px 20px;
+    padding:calc(14px + env(safe-area-inset-top)) 20px 14px;
     flex-wrap:nowrap;
     background:linear-gradient(to bottom,rgba(5,7,10,.96),rgba(5,7,10,.9) 78%,rgba(5,7,10,0));
   }
@@ -540,12 +549,12 @@ html[data-motion="reduced"] *{transition-duration:.01ms !important}
   #hero .wrap::before,
   .flow .sec-head::before,
   #explore .hud-head::before{
-    content:"";position:absolute;inset:-14px -12px;z-index:-1;
+    content:"";position:absolute;inset:-14px 0;z-index:-1;
     border:1px solid rgba(154,167,184,.12);border-radius:10px;
     background:linear-gradient(180deg,rgba(5,7,10,.82),rgba(5,7,10,.58));
   }
   #hero .wrap{position:relative;isolation:isolate}
-  #hero .wrap::before{inset:-22px -16px;background:linear-gradient(180deg,rgba(5,7,10,.78),rgba(5,7,10,.46))}
+  #hero .wrap::before{inset:-22px 0;background:linear-gradient(180deg,rgba(5,7,10,.78),rgba(5,7,10,.46))}
   .flow{padding-top:20vh}
   .flow .veil{background:linear-gradient(to bottom,rgba(5,7,10,.68),rgba(5,7,10,.96) 9%,rgba(5,7,10,.96) 91%,rgba(5,7,10,.72))}
   .flow .sec-head{position:relative;isolation:isolate}
@@ -640,7 +649,7 @@ html[data-motion="reduced"] #finale .fl{
 
 <!-- fixed WebGL stage + projected label layer -->
 <div id="stage" aria-hidden="true"></div>
-<div id="labels" aria-hidden="true"></div>
+<div id="labels"></div>
 
 <nav aria-label="Primary">
   <a class="mark" href="#hero">Metabolic <em>/</em> Copernican Shift</a>
@@ -652,6 +661,8 @@ html[data-motion="reduced"] #finale .fl{
     <a href="#explore">Explore the System</a>
     <a href="#signal">Follow the Signal</a>
     <a href="#compare">Compare Models</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#finale">Takeaway</a>
     <a href="#evidence">Evidence</a>
     <a href="#about">About</a>
   </div>
@@ -679,7 +690,7 @@ html[data-motion="reduced"] #finale .fl{
         <svg viewBox="0 0 520 520" role="img" aria-label="Animated diagram moving from an Earth-centered model with epicycles to a Sun-centered model">
           <g id="geoDiagram">
             <circle id="geoEarth" cx="260" cy="260" r="14" fill="#22354F" stroke="#9AA7B8" stroke-width="1.5"/>
-            <g id="geoOrbits" fill="none" stroke="#5C6980" stroke-width="1"></g>
+            <g id="geoOrbits" fill="none" stroke="#7A8CA4" stroke-width="1"></g>
             <g id="geoEpis" fill="none" stroke="#8A5A2A" stroke-width="1"></g>
             <g id="geoBodies"></g>
           </g>
@@ -748,10 +759,10 @@ html[data-motion="reduced"] #finale .fl{
       <div class="hud-tools">
         <div class="zoomer">
           <span class="zl">Zoom level</span>
-          <div class="seg" role="tablist" aria-label="Zoom level">
-            <button type="button" data-zoom="1" class="on">Clinical</button>
-            <button type="button" data-zoom="2">System</button>
-            <button type="button" data-zoom="3">Cellular</button>
+          <div class="seg" id="zoomLevel" role="radiogroup" aria-label="Zoom level">
+            <button type="button" role="radio" aria-checked="true" tabindex="0" data-zoom="1" class="on">Clinical</button>
+            <button type="button" role="radio" aria-checked="false" tabindex="-1" data-zoom="2">System</button>
+            <button type="button" role="radio" aria-checked="false" tabindex="-1" data-zoom="3">Cellular</button>
           </div>
           <p class="zoom-caption" id="zoomCaption">Symptoms are what we observe at the surface.</p>
         </div>
@@ -779,7 +790,7 @@ html[data-motion="reduced"] #finale .fl{
     <div class="signal-grid">
       <div class="marker-list" id="markerList" role="tablist" aria-label="Clinical markers"></div>
       <div>
-        <div class="chain" id="chainBox" aria-live="polite"></div>
+        <div class="chain" id="chainBox" role="tabpanel" aria-live="polite" aria-label="Selected signal pathway"></div>
         <p class="signal-note">These are simplified conceptual pathways for orientation, not claims that every case follows an identical causal chain. Individual biology varies, and multiple mechanisms usually act at once.</p>
       </div>
     </div>
@@ -852,7 +863,7 @@ html[data-motion="reduced"] #finale .fl{
     <div class="legend-row">
       <span class="ev-strength s1">HIGH</span>
       <span class="ev-strength s2">MODERATE</span>
-      <span class="ev-strength s2">ASSOCIATION ONLY</span>
+      <span class="ev-strength s2a">ASSOCIATION ONLY</span>
       <span class="ev-strength s3">LOW / EMERGING</span>
     </div>
     <div class="evidence-meta">
@@ -910,7 +921,7 @@ html[data-motion="reduced"] #finale .fl{
 </div><!-- /content -->
 
 <!-- node evidence panel -->
-<aside id="nodePanel" aria-hidden="true">
+<aside id="nodePanel" role="dialog" aria-modal="true" aria-labelledby="npTitle" aria-hidden="true">
   <div class="head">
     <p class="cat" id="npCat">System process</p>
     <h3 id="npTitle">Node</h3>
@@ -926,10 +937,10 @@ html[data-motion="reduced"] #finale .fl{
   <p class="panel-disclaimer">Relationship language is deliberately hedged where causation is not firmly established. Sources are canonical records with direct URLs and a shared last-reviewed date.</p>
 </aside>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" integrity="sha384-RVPQwTb0fPz9kI8s5GwAq1Qioto9fnEQt1aKGSQSm8xV6+DIdBSgcCShoHqfKnhv" crossorigin="anonymous"></script>
 <script>
 /* ============================================================
    THE METABOLIC COPERNICAN SHIFT
@@ -991,7 +1002,7 @@ const SOURCES = Object.fromEntries(SOURCE_RECORDS.map(s => [s.id, s]));
 const GRADE_META = {
   HIGH:{ cls:"s1", label:"HIGH" },
   MODERATE:{ cls:"s2", label:"MODERATE" },
-  "ASSOCIATION ONLY":{ cls:"s2", label:"ASSOCIATION ONLY" },
+  "ASSOCIATION ONLY":{ cls:"s2a", label:"ASSOCIATION ONLY" },
   "LOW/EMERGING":{ cls:"s3", label:"LOW / EMERGING" }
 };
 const LEGACY_GRADE = { s1:"HIGH", s2:"MODERATE", s3:"LOW/EMERGING" };
@@ -1226,30 +1237,32 @@ const SYMPTOMS = [
   { id:"s_cvd", label:"Cardiovascular Risk", tx:null, a:21.5, b:15.5, tiltZ:0.6, tiltX:0.78, speed:0.08, phase:5.9, epi:0, col:0x9D8FA6 }
 ];
 
-const CHAINS = [
-  { id:"c_glu", label:"High Blood Sugar", sub:"fasting glucose / HbA1c",
-    steps:[ ["High Blood Sugar","clinical signal"], ["Glucose Regulation","system process"], ["Insulin Signaling","system process"], ["Cellular Energy Regulation","cellular process"], ["Metabolic Health","the center"] ] },
-  { id:"c_tg", label:"High Triglycerides", sub:"fasting lipid panel",
-    steps:[ ["High Triglycerides","clinical signal"], ["Lipid Handling","system process"], ["Liver Metabolism","system process"], ["Insulin Signaling","system process"], ["Metabolic Health","the center"] ] },
-  { id:"c_inflam", label:"Chronic Inflammation", sub:"hs-CRP and related markers",
-    steps:[ ["Inflammatory Markers","clinical signal"], ["Immune Signaling","system process"], ["Oxidative / Metabolic Stress","system process"], ["Metabolic Health","the center"] ] }
-];
-
 const METRICS = [
   { id:"m_glu", name:"Fasting glucose", unit:"mg/dL", min:70, max:160, val:96, node:"glucose_reg" },
   { id:"m_a1c", name:"HbA1c", unit:"%", min:4.5, max:9.0, val:5.5, step:0.1, node:"glucose_reg" },
   { id:"m_ins", name:"Fasting insulin", unit:"uIU/mL", min:2, max:30, val:8, node:"insulin" },
   { id:"m_tg", name:"Triglycerides", unit:"mg/dL", min:50, max:400, val:120, node:"lipid" },
   { id:"m_hdl", name:"HDL", unit:"mg/dL", min:25, max:90, val:52, node:"lipid" },
-  { id:"m_bp", name:"Blood pressure (systolic)", unit:"mmHg", min:95, max:170, val:122, node:"bodycomp" },
+  { id:"m_bp", name:"Blood pressure (systolic)", unit:"mmHg", min:95, max:170, val:122, node:"bp" },
   { id:"m_waist", name:"Waist circumference", unit:"cm", min:60, max:140, val:92, node:"bodycomp" },
-  { id:"m_alt", name:"ALT / AST", unit:"U/L", min:10, max:120, val:26, node:"insulin" },
+  { id:"m_alt", name:"ALT / AST", unit:"U/L", min:10, max:120, val:26, node:"liver" },
   { id:"m_crp", name:"hs-CRP", unit:"mg/L", min:0.2, max:10, val:1.4, step:0.1, node:"inflam" }
 ];
 
 const nodeById = {};
 NODES.forEach(n => nodeById[n.id] = n);
 FACTORS.forEach(f => nodeById[f.id] = f);
+
+/* The narrative modules use the same node labels as the 3D model. */
+const chainStep = (id, role) => [nodeById[id].label, role];
+const CHAINS = [
+  { id:"c_glu", label:nodeById.glu.label, sub:"fasting glucose / HbA1c",
+    steps:[ chainStep("glu","clinical signal"), chainStep("glucose_reg","system process"), chainStep("insulin","system process"), chainStep("energy","system process"), chainStep("core","the center") ] },
+  { id:"c_tg", label:nodeById.tg.label, sub:"fasting lipid panel",
+    steps:[ chainStep("tg","clinical signal"), chainStep("lipid","system process"), chainStep("liver","clinical marker"), chainStep("insulin","system process"), chainStep("core","the center") ] },
+  { id:"c_inflam", label:nodeById.inflam.label, sub:"hs-CRP and related markers",
+    steps:[ chainStep("inflam","system process"), chainStep("oxstress","system process"), chainStep("mito","system process"), chainStep("core","the center") ] }
+];
 
 /* connection pairs, deduplicated, only among ids that exist */
 const CONN_PAIRS = (() => {
@@ -1268,7 +1281,7 @@ const CONN_PAIRS = (() => {
 const REDUCE_QUERY = window.matchMedia("(prefers-reduced-motion: reduce)");
 const MOTION_OVERRIDE = sessionStorage.getItem("metabolic-motion");
 let motionOK = MOTION_OVERRIDE ? MOTION_OVERRIDE === "full" : !REDUCE_QUERY.matches;
-const isMobile = Math.min(window.innerWidth, window.innerHeight) < 700 || "ontouchstart" in window && window.innerWidth < 900;
+let isMobile = window.innerWidth < 900;
 
 const STATE = {
   orbit: 1,        /* old model orbital speed factor */
@@ -1289,28 +1302,34 @@ const STATE = {
   flash: 0
 };
 
-let scene, camera, renderer, clock;
+let scene, camera, renderer, clock, renderDisabled = false;
 let starsA, starsB, dustSprites = [];
 let geoGroup, patientSprite, patientGlow, planetObjs = [], geoPathMats = [];
 let helioGroup, sunCore, sunGlows = [], nodeObjs = {}, connObjs = [], factorConnObjs = [], factorAnchors = {};
+let connGuides = [], spokeMats = [];
 let labelItems = [];
 let selectedId = null, hoverId = null, hoverFromLabel = false, exploreActive = false, currentZoom = 1;
 let LABELGATE = 1;
 const tmpV = new THREE.Vector3();
 
 /* ---------- texture helpers ---------- */
+const glowTextureCache = new Map();
 function glowTexture(hexInner, hexOuter, stops) {
+  const resolvedStops = stops || [[0, hexInner, 1], [0.35, hexInner, 0.55], [1, hexOuter, 0]];
+  const cacheKey = hexInner + "|" + hexOuter + "|" + JSON.stringify(resolvedStops);
+  if (glowTextureCache.has(cacheKey)) return glowTextureCache.get(cacheKey);
   const s = 256, c = document.createElement("canvas");
   c.width = c.height = s;
   const g = c.getContext("2d");
   const grad = g.createRadialGradient(s/2, s/2, 0, s/2, s/2, s/2);
-  (stops || [[0, hexInner, 1], [0.35, hexInner, 0.55], [1, hexOuter, 0]]).forEach(st => {
+  resolvedStops.forEach(st => {
     grad.addColorStop(st[0], hexToRgba(st[1], st[2]));
   });
   g.fillStyle = grad;
   g.fillRect(0, 0, s, s);
   const t = new THREE.CanvasTexture(c);
   t.minFilter = THREE.LinearFilter;
+  glowTextureCache.set(cacheKey, t);
   return t;
 }
 function hexToRgba(hex, a) {
@@ -1347,6 +1366,8 @@ function addLabel(opts) {
   const el = document.createElement("div");
   el.className = "lbl " + (opts.cls || "");
   el.innerHTML = "<span class='t'>" + opts.text + "</span>" + (opts.sub ? "<span class='tx'>" + opts.sub + "</span>" : "");
+  el.setAttribute("aria-hidden", opts.pick ? "false" : "true");
+  el.style.visibility = "hidden";
   labelsRoot.appendChild(el);
   const item = {
     el,
@@ -1359,7 +1380,18 @@ function addLabel(opts) {
   };
   if (opts.pick && opts.id) {
     el.classList.add("pick");
-    el.addEventListener("click", (e) => { e.stopPropagation(); if (exploreActive) selectNode(opts.id); });
+    el.dataset.nodeId = opts.id;
+    el.setAttribute("role", "button");
+    el.setAttribute("tabindex", "0");
+    el.setAttribute("aria-label", opts.text);
+    el.setAttribute("aria-pressed", "false");
+    el.addEventListener("click", (e) => { e.stopPropagation(); if (exploreActive) selectNode(opts.id, el); });
+    el.addEventListener("keydown", e => {
+      if ((e.key === "Enter" || e.key === " ") && exploreActive) {
+        e.preventDefault();
+        selectNode(opts.id, el);
+      }
+    });
     el.addEventListener("mouseenter", () => { if (exploreActive) { hoverId = opts.id; hoverFromLabel = true; } });
     el.addEventListener("mouseleave", () => { if (hoverId === opts.id) { hoverId = null; hoverFromLabel = false; } });
     el.style.pointerEvents = "none"; /* enabled only while explore is active */
@@ -1409,12 +1441,20 @@ function initScene() {
   buildGeocentric();
   buildHeliocentric();
 
+  renderer.domElement.addEventListener("webglcontextlost", e => {
+    e.preventDefault();
+    renderDisabled = true;
+    stage.style.display = "none";
+    console.warn("WebGL context lost; the interactive background has been disabled.");
+  });
   window.addEventListener("resize", onResize);
 }
 
 function onResize() {
+  isMobile = window.innerWidth < 900;
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.5));
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
@@ -1603,8 +1643,6 @@ function buildHeliocentric() {
   buildConnections();
 }
 
-const connGuides = [];
-
 function makeNode(n, target, size, ringKey) {
   const tone = n.tone === "ember";
   const color = tone ? 0xE06A4A : 0x57D4C8;
@@ -1732,7 +1770,6 @@ function buildConnections() {
     spokeMats.push(mat);
   });
 }
-const spokeMats = [];
 </script>
 <script>
 /* ============================================================
@@ -1744,7 +1781,7 @@ const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 const stageEl = document.getElementById("stage");
 const hasGL = !!window.THREE;
-const hasGSAP = !!window.gsap;
+const hasGSAP = !!window.gsap && typeof ScrollTrigger !== "undefined" && typeof ScrollToPlugin !== "undefined";
 const navEl = $("nav"), menuToggle = $("#menuToggle"), primaryLinks = $("#primaryLinks");
 let pmx = 0, pmy = 0;               /* pointer parallax */
 const mouseNDC = { x: -10, y: -10 };
@@ -1766,6 +1803,7 @@ if (menuToggle && primaryLinks) {
 /* ---------- selection + evidence panel ---------- */
 const npEl = $("#nodePanel"), npCat = $("#npCat"), npTitle = $("#npTitle"),
       npDesc = $("#npDesc"), npConns = $("#npConns"), npEvidence = $("#npEvidence");
+let panelTrigger = null;
 
 function catLabel(def) {
   if (def.category === "core") return ["The center", ""];
@@ -1776,10 +1814,11 @@ function catLabel(def) {
   return ["Node", ""];
 }
 
-function selectNode(id) {
+function selectNode(id, trigger) {
   const def = nodeById[id];
   if (!def) return;
   selectedId = id;
+  if (trigger) panelTrigger = trigger;
   if (def.category === "factor" && STATE.factorA < 0.5) setFactors(true);
   const [txt, cls] = catLabel(def);
   npCat.textContent = txt;
@@ -1805,11 +1844,18 @@ function selectNode(id) {
   });
   npEl.classList.add("open");
   npEl.setAttribute("aria-hidden", "false");
+  $$(".lbl.pick").forEach(el => el.setAttribute("aria-pressed", el.dataset.nodeId === id ? "true" : "false"));
+  if (document.activeElement !== npClose) npClose.focus();
 }
-function closePanel() {
+function closePanel(restoreFocus = true) {
   npEl.classList.remove("open");
   npEl.setAttribute("aria-hidden", "true");
   selectedId = null;
+  $$(".lbl.pick").forEach(el => el.setAttribute("aria-pressed", "false"));
+  const target = panelTrigger;
+  panelTrigger = null;
+  if (restoreFocus && target && document.contains(target)) target.focus();
+  if (restoreFocus && npEl.contains(document.activeElement)) $("#factorBtn").focus();
 }
 $("#npClose").addEventListener("click", closePanel);
 document.addEventListener("keydown", e => { if (e.key === "Escape") { closePanel(); closeMenu(); } });
@@ -1871,7 +1917,12 @@ const ZOOMS = {
 function setZoom(z) {
   currentZoom = z;
   const cfg = ZOOMS[z];
-  $$(".seg button").forEach(b => b.classList.toggle("on", +b.dataset.zoom === z));
+  $$("#zoomLevel button").forEach(b => {
+    const active = +b.dataset.zoom === z;
+    b.classList.toggle("on", active);
+    b.setAttribute("aria-checked", String(active));
+    b.tabIndex = active ? 0 : -1;
+  });
   $("#zoomCaption").textContent = cfg.cap;
   if (hasGSAP) {
     gsap.to(STATE, { camZ: cfg.camZ, camY: cfg.camY, sysA: cfg.sysA, clinA: cfg.clinA, cellA: cfg.cellA,
@@ -1880,7 +1931,16 @@ function setZoom(z) {
     Object.assign(STATE, cfg);
   }
 }
-$$(".seg button").forEach(b => b.addEventListener("click", () => setZoom(+b.dataset.zoom)));
+$("#zoomLevel").addEventListener("keydown", e => {
+  if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) return;
+  const buttons = $$("#zoomLevel button");
+  const current = buttons.findIndex(b => b.getAttribute("aria-checked") === "true");
+  const next = e.key === "Home" ? 0 : e.key === "End" ? buttons.length - 1 : Math.max(0, Math.min(buttons.length - 1, current + (e.key === "ArrowRight" ? 1 : -1)));
+  e.preventDefault();
+  setZoom(+buttons[next].dataset.zoom);
+  buttons[next].focus();
+});
+$("#zoomLevel").querySelectorAll("button").forEach(b => b.addEventListener("click", () => setZoom(+b.dataset.zoom)));
 
 /* ---------- factor layer ---------- */
 let factorsOn = false;
@@ -1888,7 +1948,7 @@ function setFactors(on) {
   factorsOn = on;
   const btn = $("#factorBtn");
   btn.classList.toggle("on", on);
-  btn.setAttribute("aria-pressed", on);
+  btn.setAttribute("aria-pressed", String(on));
   $("#factorLegend").classList.toggle("show", on);
   if (hasGSAP) gsap.to(STATE, { factorA: on ? 1 : 0, duration: motionOK ? 1.2 : 0.01, ease: "power2.out", overwrite: "auto" });
   else STATE.factorA = on ? 1 : 0;
@@ -1948,19 +2008,39 @@ function buildSignal() {
     const b = document.createElement("button");
     b.type = "button";
     b.setAttribute("role", "tab");
+    b.id = "marker-" + c.id;
+    b.setAttribute("aria-controls", "chainBox");
+    b.setAttribute("aria-selected", "false");
+    b.tabIndex = i === 0 ? 0 : -1;
     b.innerHTML = c.label + "<small>" + c.sub + "</small>";
     b.addEventListener("click", () => playChain(c.id));
+    b.addEventListener("keydown", e => {
+      if (!["ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) return;
+      const buttons = $$("#markerList button");
+      const current = buttons.indexOf(b);
+      const next = e.key === "Home" ? 0 : e.key === "End" ? buttons.length - 1 : Math.max(0, Math.min(buttons.length - 1, current + (e.key === "ArrowDown" ? 1 : -1)));
+      e.preventDefault();
+      buttons[next].focus();
+      playChain(buttons[next].dataset.chain);
+    });
     b.dataset.chain = c.id;
     list.appendChild(b);
   });
+  playChain(CHAINS[0].id);
 }
 function playChain(id) {
   const chain = CHAINS.find(c => c.id === id);
   if (!chain) return;
   chainTimers.forEach(clearTimeout);
   chainTimers = [];
-  $$("#markerList button").forEach(b => b.classList.toggle("on", b.dataset.chain === id));
+  $$("#markerList button").forEach(b => {
+    const active = b.dataset.chain === id;
+    b.classList.toggle("on", active);
+    b.setAttribute("aria-selected", String(active));
+    b.tabIndex = active ? 0 : -1;
+  });
   const box = $("#chainBox");
+  box.setAttribute("aria-labelledby", "marker-" + id);
   box.innerHTML = "";
   chain.steps.forEach((s, i) => {
     const step = document.createElement("div");
@@ -2001,7 +2081,7 @@ function cmpLeftSVG() {
   for (let i = 0; i < 90; i++) {
     s += "<circle cx='" + (r() * 800).toFixed(0) + "' cy='" + (r() * 460).toFixed(0) + "' r='" + (r() * 1.1 + 0.2).toFixed(1) + "' fill='#22304a' opacity='" + (r() * 0.5 + 0.15).toFixed(2) + "'/>";
   }
-  const labels = ["Blood Pressure", "Blood Sugar", "Inflammation", "Triglycerides", "Fatty Liver", "Visceral Fat", "Fatigue", "CV Risk"];
+  const labels = SYMPTOMS.map(s => s.label);
   for (let i = 0; i < 8; i++) {
     const rx = 70 + r() * 220, ry = 45 + r() * 130, rot = (r() * 120 - 60).toFixed(0);
     s += "<ellipse cx='400' cy='230' rx='" + rx.toFixed(0) + "' ry='" + ry.toFixed(0) + "' fill='none' stroke='#3A4A66' stroke-width='1' opacity='0.55' transform='rotate(" + rot + " 400 230)'/>";
@@ -2011,7 +2091,7 @@ function cmpLeftSVG() {
     s += "<circle cx='" + px.toFixed(0) + "' cy='" + py.toFixed(0) + "' r='6' fill='#7E93B4'/>";
     s += "<circle cx='" + px.toFixed(0) + "' cy='" + py.toFixed(0) + "' r='11' fill='none' stroke='#54617A' stroke-width='1' opacity='.5'/>";
     s += "<text x='" + (px + 14).toFixed(0) + "' y='" + (py + 4).toFixed(0) + "' fill='#8fa0b8' font-size='11.5' font-family='Space Grotesk,sans-serif' letter-spacing='1'>" + labels[i] + "</text>";
-    if (i < 4) s += "<text x='" + (px + 14).toFixed(0) + "' y='" + (py + 18).toFixed(0) + "' fill='#5C6980' font-size='9' font-family='Inter,sans-serif'>+ intervention</text>";
+    if (i < 4) s += "<text x='" + (px + 14).toFixed(0) + "' y='" + (py + 18).toFixed(0) + "' fill='#7A8CA4' font-size='9' font-family='Inter,sans-serif'>+ intervention</text>";
     if (r() > 0.5) {
       const er = 14 + r() * 12;
       s += "<circle cx='" + px.toFixed(0) + "' cy='" + py.toFixed(0) + "' r='" + er.toFixed(0) + "' fill='none' stroke='#6A5230' stroke-width='1' opacity='.5'/>";
@@ -2032,12 +2112,13 @@ function cmpRightSVG() {
   for (let i = 0; i < 70; i++) {
     s += "<circle cx='" + (r() * 800).toFixed(0) + "' cy='" + (r() * 460).toFixed(0) + "' r='" + (r() * 1 + 0.2).toFixed(1) + "' fill='#39527a' opacity='" + (r() * 0.5 + 0.2).toFixed(2) + "'/>";
   }
-  const sys = ["Insulin", "Mitochondria", "Inflammation", "Oxidative Stress", "Glucose Reg", "Lipids", "Energy", "Hormones", "Body Comp"];
-  const clin = ["Blood Pressure", "Glucose", "Triglycerides", "Waist", "Liver", "CV Risk", "Fatigue"];
+  const sys = NODES.filter(n => n.category === "system").map(n => n.id);
+  const clin = NODES.filter(n => n.category === "clinical").map(n => n.id);
   s += "<ellipse cx='400' cy='230' rx='128' ry='96' fill='none' stroke='#2A4C55' stroke-width='1' opacity='.8'/>";
   s += "<ellipse cx='400' cy='230' rx='215' ry='162' fill='none' stroke='#233c46' stroke-width='1' opacity='.6'/>";
   const sysPts = [];
-  sys.forEach((n, i) => {
+  sys.forEach((id, i) => {
+    const n = nodeById[id].label;
     const a = -0.4 + i / sys.length * Math.PI * 2;
     const x = 400 + Math.cos(a) * 128, y = 230 + Math.sin(a) * 96;
     sysPts.push([x, y]);
@@ -2047,7 +2128,8 @@ function cmpRightSVG() {
     const [x1, y1] = sysPts[i], [x2, y2] = sysPts[(i + 2) % sysPts.length];
     s += "<path d='M" + x1.toFixed(0) + " " + y1.toFixed(0) + " Q 400 230 " + x2.toFixed(0) + " " + y2.toFixed(0) + "' fill='none' stroke='#57D4C8' stroke-width='1' opacity='.16'/>";
   }
-  sys.forEach((n, i) => {
+  sys.forEach((id, i) => {
+    const n = nodeById[id].label;
     const [x, y] = sysPts[i];
     s += "<circle cx='" + x.toFixed(0) + "' cy='" + y.toFixed(0) + "' r='6' fill='#0E2A32' stroke='#57D4C8' stroke-width='1.4'/>";
     const anchor = x > 430 ? "start" : x < 370 ? "end" : "middle";
@@ -2055,7 +2137,8 @@ function cmpRightSVG() {
     const dy = y > 230 ? 20 : -13;
     s += "<text x='" + (x + dx).toFixed(0) + "' y='" + (y + dy).toFixed(0) + "' fill='#BFE9E4' font-size='10.5' font-family='Space Grotesk,sans-serif' text-anchor='" + anchor + "' letter-spacing='1'>" + n + "</text>";
   });
-  clin.forEach((n, i) => {
+  clin.forEach((id, i) => {
+    const n = nodeById[id].label;
     const a = 0.15 + i / clin.length * Math.PI * 2;
     const x = 400 + Math.cos(a) * 215, y = 230 + Math.sin(a) * 162;
     s += "<circle cx='" + x.toFixed(0) + "' cy='" + y.toFixed(0) + "' r='4.5' fill='#0B1524' stroke='#7d92ab' stroke-width='1.2'/>";
@@ -2101,17 +2184,20 @@ function buildCompare() {
 /* ---------- clinical marker dashboard ---------- */
 const MINI = {
   core: [230, 200], glucose_reg: [230, 78], insulin: [104, 138],
-  lipid: [356, 138], inflam: [104, 266], bodycomp: [356, 266], energy: [230, 326]
+  lipid: [356, 138], inflam: [104, 266], bodycomp: [356, 266], energy: [230, 326],
+  bp: [54, 78], liver: [406, 78]
 };
-const MINI_LBL = {
-  core: "Metabolic Health", glucose_reg: "Glucose Regulation", insulin: "Insulin Sensitivity",
-  lipid: "Lipid Metabolism", inflam: "Inflammation", bodycomp: "Body Composition", energy: "Energy"
-};
-const MINI_EDGES = [
-  ["core", "glucose_reg"], ["core", "insulin"], ["core", "lipid"], ["core", "inflam"],
-  ["core", "bodycomp"], ["core", "energy"], ["insulin", "glucose_reg"], ["insulin", "lipid"],
-  ["inflam", "insulin"], ["bodycomp", "inflam"], ["lipid", "bodycomp"]
-];
+const MINI_EDGES = (() => {
+  const seen = new Set(), edges = [];
+  NODES.forEach(n => (n.connections || []).forEach(cid => {
+    if (!MINI[n.id] || !MINI[cid]) return;
+    const key = [n.id, cid].sort().join("|");
+    if (seen.has(key)) return;
+    seen.add(key);
+    edges.push([n.id, cid]);
+  }));
+  return edges;
+})();
 function buildDashboard() {
   const svg = $("#miniNet");
   let s = "";
@@ -2127,7 +2213,7 @@ function buildDashboard() {
     s += "<circle class='" + (core ? "mini-core" : "mini-node") + "' data-n='" + id + "' cx='" + x + "' cy='" + y + "' r='" + (core ? 16 : 9) + "'/>";
     const dy = y < 200 ? -18 : y > 200 ? 26 : 0;
     const yy = core ? y + 34 : y + dy;
-    s += "<text class='mini-lbl" + (core ? " core" : "") + "' x='" + x + "' y='" + yy + "' text-anchor='middle'>" + MINI_LBL[id] + "</text>";
+    s += "<text class='mini-lbl" + (core ? " core" : "") + "' x='" + x + "' y='" + yy + "' text-anchor='middle'>" + nodeById[id].label + "</text>";
   }
   svg.innerHTML = s;
 
@@ -2242,7 +2328,7 @@ function buildEvidenceGrid() {
    ============================================================ */
 "use strict";
 
-let momentST = null, sliderSquelch = false, storyArt = null;
+let momentST = null, sliderSquelchUntil = 0, storyArt = null, scrollReady = false;
 
 function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
 
@@ -2274,7 +2360,7 @@ function applyReducedMotionState() {
   $("#hero .wrap").style.transform = "none";
   $("#changeBtn").style.opacity = "1";
   $("#explore .hud").style.opacity = "1";
-  LABELGATE = 0;
+  LABELGATE = 1;
   setExplore(true);
 }
 
@@ -2283,6 +2369,11 @@ function setupScroll() {
     applyReducedMotionState();
     return;
   }
+  if (scrollReady) {
+    ScrollTrigger.refresh();
+    return;
+  }
+  scrollReady = true;
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
   /* --- hero: soft handoff --- */
@@ -2355,7 +2446,7 @@ function setupScroll() {
     scrollTrigger: {
       trigger: "#moment .pin-panel", start: "top top", end: "+=3400", pin: true, scrub: 0.7,
       onUpdate(self) {
-        if (!sliderSquelch) {
+        if (performance.now() >= sliderSquelchUntil) {
           slider.value = Math.round(self.progress * 1000);
           slider.style.setProperty("--fill", (self.progress * 100).toFixed(1) + "%");
         }
@@ -2386,11 +2477,10 @@ function setupScroll() {
 
   slider.addEventListener("input", () => {
     if (!momentST) return;
-    sliderSquelch = true;
+    sliderSquelchUntil = performance.now() + 160;
     const p = slider.value / 1000;
     slider.style.setProperty("--fill", (p * 100).toFixed(1) + "%");
     window.scrollTo(0, momentST.start + p * (momentST.end - momentST.start));
-    requestAnimationFrame(() => sliderSquelch = false);
   });
   $("#changeBtn").addEventListener("click", () => {
     if (!momentST) return;
@@ -2459,7 +2549,7 @@ function ensureHelio() {
 /* ---------- render loop ---------- */
 function tick() {
   requestAnimationFrame(tick);
-  if (!hasGL || document.hidden) return;
+  if (!hasGL || !clock || renderDisabled || document.hidden) return;
   const dt = Math.min(clock.getDelta(), 0.05);
   const t = clock.elapsedTime;
   const focus = selectedId || hoverId;
@@ -2590,8 +2680,14 @@ function tick() {
   camera.lookAt(0, 0, 0);
 
   runPicking();
-  renderer.render(scene, camera);
-  projectLabels();
+  try {
+    renderer.render(scene, camera);
+    projectLabels();
+  } catch (err) {
+    renderDisabled = true;
+    stageEl.style.display = "none";
+    console.error("WebGL render failed; the interactive background has been disabled.", err);
+  }
 }
 
 /* ---------- motion toggle ---------- */
@@ -2605,18 +2701,23 @@ function setMotion(on) {
     if (hasGSAP && typeof ScrollTrigger !== "undefined") {
       ScrollTrigger.getAll().slice().forEach(trigger => trigger.kill());
     }
+    scrollReady = false;
     momentST = null;
     applyReducedMotionState();
+  } else {
+    setupScroll();
+    if (hasGSAP) requestAnimationFrame(() => ScrollTrigger.refresh());
   }
 }
 $("#motionToggle").addEventListener("click", () => {
   const next = !motionOK;
   sessionStorage.setItem("metabolic-motion", next ? "full" : "reduced");
   setMotion(next);
-  if (next && hasGSAP && typeof ScrollTrigger !== "undefined" && !ScrollTrigger.getAll().length) location.reload();
 });
 if (REDUCE_QUERY.matches && MOTION_OVERRIDE !== "full") setMotion(false);
-REDUCE_QUERY.addEventListener && REDUCE_QUERY.addEventListener("change", e => setMotion(!e.matches));
+REDUCE_QUERY.addEventListener && REDUCE_QUERY.addEventListener("change", e => {
+  if (!sessionStorage.getItem("metabolic-motion")) setMotion(!e.matches);
+});
 
 /* ---------- boot ---------- */
 (function boot() {
